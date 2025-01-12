@@ -75,7 +75,7 @@ body {
 
 .staff {
     position: relative;
-    height: 100px; /* Adjust height as needed */
+    height: 200px; /* Adjust height as needed */
     margin: 20px 0;
 }
 
@@ -88,23 +88,23 @@ body {
 }
 
 .staff-line:nth-child(1) {
-    top: 0;
+    top: 50px;
 }
 
 .staff-line:nth-child(2) {
-    top: 25%;
+    top: 75px;
 }
 
 .staff-line:nth-child(3) {
-    top: 50%;
+    top: 100px;
 }
 
 .staff-line:nth-child(4) {
-    top: 75%;
+    top: 125px;
 }
 
 .staff-line:nth-child(5) {
-    top: 100%;
+    top: 150px;
 }
 
 .f-clef-image {
@@ -136,6 +136,17 @@ body {
     width: 25px;
     height: 25px;
     background-color: black;
-    border-radius: 80%;
+    border-radius: 50%;
     pointer-events: auto; /* Allow interaction with the notes */
+}
+
+.strike-through-note::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -15px; /* Adjust to center the line */
+    width: 55px; /* Length of the line */
+    height: 1px;
+    background-color: black;
+    transform: translateY(-50%);
 }
