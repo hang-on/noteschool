@@ -17,7 +17,13 @@ const notesData = [
     { note: 'c2', y: 170, strikeThrough: true }
 ];
 
-// Function to add a note at a specific position
+/**
+ * Adds a note at a specific position within the container.
+ * @param {HTMLElement} container - The container to add the note to.
+ * @param {number} x - The x-coordinate for the note.
+ * @param {number} y - The y-coordinate for the note.
+ * @param {boolean} strikeThrough - Whether the note has a strike-through line.
+ */
 function addNoteAtPosition(container, x, y, strikeThrough = false) {
     const note = document.createElement('div');
     note.classList.add('note');
@@ -29,7 +35,10 @@ function addNoteAtPosition(container, x, y, strikeThrough = false) {
     container.appendChild(note);
 }
 
-// Function to render notes
+/**
+ * Renders all notes within the container.
+ * @param {HTMLElement} container - The container to render the notes in.
+ */
 function renderNotes(container) {
     notesData.forEach((noteData, index) => {
         addNoteAtPosition(container, index * 50, noteData.y, noteData.strikeThrough);
