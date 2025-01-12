@@ -81,6 +81,7 @@ body {
 
 .staff-line {
     position: absolute;
+    top: 100px;
     left: 0;
     right: 0;
     height: 1px;
@@ -120,4 +121,22 @@ body {
 .notes-header {
     display: flex;
     align-items: center;
+}
+
+.notes-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    pointer-events: none; /* Prevent interaction with the container */
+}
+
+.note {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: black;
+    border-radius: 80%;
+    pointer-events: auto; /* Allow interaction with the notes */
 }
