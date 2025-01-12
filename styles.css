@@ -32,18 +32,12 @@ body {
     background-color: white;
     border-radius: 10px;
     margin: 20px;
+    position: relative;
 }
 
 .subtitle {
     font-size: 1.5em;
     margin: 10px 0;
-}
-
-.note-images {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
 }
 
 .status-bar-container {
@@ -77,4 +71,53 @@ body {
     max-height: 150px;
     overflow-y: auto;
     margin-bottom: 20px;
+}
+
+.staff {
+    position: relative;
+    height: 100px; /* Adjust height as needed */
+    margin: 20px 0;
+}
+
+.staff-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: black;
+}
+
+.staff-line:nth-child(1) {
+    top: 0;
+}
+
+.staff-line:nth-child(2) {
+    top: 25%;
+}
+
+.staff-line:nth-child(3) {
+    top: 50%;
+}
+
+.staff-line:nth-child(4) {
+    top: 75%;
+}
+
+.staff-line:nth-child(5) {
+    top: 100%;
+}
+
+.f-clef-image {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    margin-left: 10px; /* Adjust as needed */
+    border: 1px solid black; /* Thin outline */
+    width: 50px; /* Adjust size as needed */
+    height: auto;
+}
+
+.notes-header {
+    display: flex;
+    align-items: center;
 }
