@@ -17,6 +17,8 @@ const notesData = [
     { note: 'c2', y: 170, strikeThrough: true }
 ];
 
+const notePool = ['c3', 'd3', 'e3'];
+
 /**
  * Adds a note at a specific position within the container.
  * @param {HTMLElement} container - The container to add the note to.
@@ -33,4 +35,46 @@ function addNoteAtPosition(container, x, y, strikeThrough = false) {
     note.style.left = `${x}px`;
     note.style.top = `${y}px`;
     container.appendChild(note);
+}
+
+/**
+ * Generates a random note from the notePool, looks up the note in the notesData,
+ * and places the note on the rightmost part of the staff.
+ * @param {HTMLElement} container - The container to add the note to.
+ */
+function generateRandomNoteAndPlace(container) {
+    // Generate a random note from the notePool
+    const randomNote = notePool[Math.floor(Math.random() * notePool.length)];
+
+    // Look up the note in the notesData
+    const noteData = notesData.find(note => note.note === randomNote);
+
+    if (noteData) {
+        // Get the width of the staff container to place the note on the rightmost part
+        const staffWidth = container.clientWidth;
+
+        // Add the note at the rightmost part of the staff
+        addNoteAtPosition(container, staffWidth - 20, noteData.y, noteData.strikeThrough);
+    }
+}
+
+/**
+ * Generates a random note from the notePool.
+ * @returns {Object} The generated note data.
+ */
+function generateRandomNote() {
+    const randomNote = notePool[Math.floor(Math.random() * notePool.length)];
+    return notesData.find(note => note.note === randomNote);
+}
+
+/**
+ * Places a note on the staff at a specified x-coordinate.
+ * @param {HTMLElement} container - The container to add the note to.
+ * @param {Object} noteData - The note data to place.
+ * @param {number} x - The x-coordinate for the note.
+ */
+function placeNoteOnStaff(container, noteData, x) {
+    if (noteData) {
+        addNoteAtPosition(container, x, noteData.y, noteData.strikeThrough);
+    }
 }
