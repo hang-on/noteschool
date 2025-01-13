@@ -3,9 +3,17 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeMIDI();
     const notesContainer = document.querySelector('.notes-container');
 
-    // Generate a random note and place it on the staff at a specified x-coordinate
-    const randomNoteData = generateRandomNote();
     const staffWidth = notesContainer.clientWidth;
-    placeNoteOnStaff(notesContainer, randomNoteData, staffWidth - 20);
 
+    // Generate a new note every 1500ms
+    setInterval(() => {
+        // 10% chance to skip generating a note
+        if (Math.random() < 0.1) {
+            return;
+        }
+        placeNoteOnStaff(notesContainer, generateRandomNote(), staffWidth - 20);
+    }, 1500);
+
+    // Update notes every 20ms
+    setInterval(updateNotes, 30);
 });
