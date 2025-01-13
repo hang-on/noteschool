@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Generate a new note every 1500ms
     setInterval(() => {
         // 10% chance to skip generating a note
-        if (Math.random() < 0.1) {
+        if (Math.random() < 0.15) {
             return;
         }
         placeNoteOnStaff(notesContainer, generateRandomNote(), staffWidth - 20);
