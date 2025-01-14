@@ -12,7 +12,6 @@ const notesInHighlightRect = new Set();
 // Variable to keep track of the previous state of active notes
 let previousActiveNotes = new Set();
 
-
 /**
  * Adds a note at a specific position within the container.
  * @param {HTMLElement} container - The container to add the note to.
@@ -32,6 +31,7 @@ function addNoteAtPosition(container, x, y, strikeThrough = false, noteName) {
     note.style.top = `${y}px`;
     note.textContent = noteName; // Set the text content to the note name
     container.appendChild(note);
+    notesOnStaff.push(note); // Add the note to the notesOnStaff array
     return note;
 }
 
@@ -44,18 +44,6 @@ function generateRandomNote() {
     return notesData.find(note => note.note === randomNote);
 }
 
-/**
- * Places a note on the staff at a specified x-coordinate.
- * @param {HTMLElement} container - The container to add the note to.
- * @param {Object} noteData - The note data to place.
- * @param {number} x - The x-coordinate for the note.
- */
-function placeNoteOnStaff(container, noteData, x) {
-    if (noteData) {
-        const noteElement = addNoteAtPosition(container, x, noteData.y, noteData.strikeThrough, noteData.note);
-        notesOnStaff.push(noteElement);
-    }
-}
 
 /**
  * Checks if a note is wholly within the highlight rectangle.
@@ -91,10 +79,8 @@ function updateNotes() {
 
             const isInHighlight = isNoteInHighlightRect(note, highlightRect);
             if (isInHighlight && !notesInHighlightRect.has(note)) {
-                console.log(`Note entered highlight rectangle: ${note.textContent}`);
                 notesInHighlightRect.add(note);
             } else if (!isInHighlight && notesInHighlightRect.has(note)) {
-                console.log(`Note left highlight rectangle: ${note.textContent}`);
                 notesInHighlightRect.delete(note);
             }
         }
@@ -146,4 +132,4 @@ function setsAreEqual(setA, setB) {
     return true;
 }
 
-export { placeNoteOnStaff, updateNotes, generateRandomNote, checkAndLogActiveNotes };
+export { addNoteAtPosition, updateNotes, generateRandomNote, checkAndLogActiveNotes };

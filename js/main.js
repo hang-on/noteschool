@@ -1,12 +1,9 @@
-import { initializeMIDI, onMIDIMessage } from "./midi.js";
-import { placeNoteOnStaff, updateNotes, generateRandomNote } from "./notes.js"
+import { addNoteAtPosition, updateNotes, generateRandomNote, checkAndLogActiveNotes } from './notes.js';
+import { onMIDIMessage, initializeMIDI } from './midi.js';
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', () => {
     initializeMIDI();
-    const notesContainer = document.querySelector('.notes-container');
-
-    const staffWidth = notesContainer.clientWidth;
 
     // Generate a new note every 1500ms
     setInterval(() => {
@@ -14,11 +11,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (Math.random() < 0.15) {
             return;
         }
-        placeNoteOnStaff(notesContainer, generateRandomNote(), staffWidth - 400);
-    }, 1500);
+        const notesContainer = document.querySelector('.notes-container');
+        const randomNoteData = generateRandomNote();
+        const staffWidth = notesContainer.clientWidth;
+        addNoteAtPosition(notesContainer, staffWidth - 400, randomNoteData.y, randomNoteData.strikeThrough, randomNoteData.note);
+    }, 2000);
 
-    // Update notes every 20ms
-    setInterval(updateNotes, 30);
+    // Update notes and check active notes every 100ms
+    setInterval(() => {
+        updateNotes();
+        checkAndLogActiveNotes();
+    }, 50);
 
     // Set up MIDI message handler
     if (navigator.requestMIDIAccess) {
@@ -30,5 +33,4 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.warn('WebMIDI is not supported in this browser.');
     }
-
 });
