@@ -1,16 +1,12 @@
 import notesData from "./notesData.js";
 import { getActiveNotes } from "./midi.js";
+import { isNoteInHighlightRect, handleHighlightRect, getNotesInHighlightRect } from "./highlightRect.js";
 
 const notePool = ['c3', 'd3', 'e3'];
 
 // Array to keep track of active notes on the staff
 const notesOnStaff = [];
 
-// Set to keep track of notes within the highlight rectangle
-const notesInHighlightRect = new Set();
-
-// Variable to keep track of the previous state of active notes
-let previousActiveNotes = new Set();
 
 /**
  * Adds a note at a specific position within the container.
@@ -45,24 +41,6 @@ function generateRandomNote() {
 }
 
 /**
- * Updates the position of active notes, moving them to the left.
- * Removes notes that reach the left border of the staff.
- * Compares the notes inside the highlight rect with active notes from the midi input,
- * and checks for matches.
- */
-function updateNotes() {
-    const highlightRect = document.querySelector('.highlight-rectangle').getBoundingClientRect();
-
-    notesOnStaff.forEach((note, index) => {
-        moveNoteLeft(note, index);
-        handleHighlightRect(note, highlightRect);
-    });
-
-    // Call the function to compare notes in the highlight rect with active notes
-    compareNotesInHighlightRectWithActiveNotes();
-}
-
-/**
  * Moves a note to the left and removes it if it reaches the left border.
  * @param {HTMLElement} note - The note element to move.
  * @param {number} index - The index of the note in the notesOnStaff array.
@@ -78,33 +56,20 @@ function moveNoteLeft(note, index) {
 }
 
 /**
- * Handles the logic for notes entering or leaving the highlight rectangle.
- * @param {HTMLElement} note - The note element to check.
- * @param {DOMRect} highlightRect - The bounding rectangle of the highlight rectangle.
+ * Updates the position of active notes, moving them to the left.
+ * Removes notes that reach the left border of the staff.
+ * Logs when a note enters or leaves the highlight rectangle.
  */
-function handleHighlightRect(note, highlightRect) {
-    const isInHighlight = isNoteInHighlightRect(note, highlightRect);
-    if (isInHighlight && !notesInHighlightRect.has(note)) {
-        notesInHighlightRect.add(note);
-    } else if (!isInHighlight && notesInHighlightRect.has(note)) {
-        notesInHighlightRect.delete(note);
-    }
-}
+function updateNotes() {
+    const highlightRect = document.querySelector('.highlight-rectangle').getBoundingClientRect();
 
-/**
- * Checks if a note is wholly within the highlight rectangle.
- * @param {HTMLElement} note - The note element to check.
- * @param {DOMRect} rect - The bounding rectangle of the highlight rectangle.
- * @returns {boolean} True if the note is wholly within the highlight rectangle, false otherwise.
- */
-function isNoteInHighlightRect(note, rect) {
-    const noteRect = note.getBoundingClientRect();
-    return (
-        noteRect.left >= rect.left &&
-        noteRect.right <= rect.right &&
-        noteRect.top >= rect.top &&
-        noteRect.bottom <= rect.bottom
-    );
+    notesOnStaff.forEach((note, index) => {
+        moveNoteLeft(note, index);
+        handleHighlightRect(note, highlightRect);
+    });
+
+    // Call the function to compare notes in the highlight rect with active notes
+    compareNotesInHighlightRectWithActiveNotes();
 }
 
 /**
@@ -114,7 +79,8 @@ function isNoteInHighlightRect(note, rect) {
 function compareNotesInHighlightRectWithActiveNotes() {
     try {
         const activeNotes = new Set(getActiveNotes().map(note => note.toLowerCase())) || new Set();
-        notesInHighlightRect.forEach((note) => {
+        const x = getNotesInHighlightRect()
+        x.forEach((note) => {
             if (activeNotes.has(note.textContent.toLowerCase())) {
                 console.log("match");
             }
@@ -125,6 +91,4 @@ function compareNotesInHighlightRectWithActiveNotes() {
     }
 }
 
-
-
-export { addNoteAtPosition, updateNotes, generateRandomNote};
+export { addNoteAtPosition, updateNotes, generateRandomNote };
