@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (Math.random() < 0.15) {
             return;
         }
-        placeNoteOnStaff(notesContainer, generateRandomNote(), staffWidth - 20);
+        placeNoteOnStaff(notesContainer, generateRandomNote(), staffWidth - 400);
     }, 1500);
 
     // Update notes every 20ms
