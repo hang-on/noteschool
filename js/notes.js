@@ -1,4 +1,5 @@
 import notesData from "./notesData.js";
+import { getActiveNotes } from "./midi.js";
 
 const notePool = ['c3', 'd3', 'e3'];
 
@@ -7,6 +8,10 @@ const notesOnStaff = [];
 
 // Set to keep track of notes within the highlight rectangle
 const notesInHighlightRect = new Set();
+
+// Variable to keep track of the previous state of active notes
+let previousActiveNotes = new Set();
+
 
 /**
  * Adds a note at a specific position within the container.
@@ -94,6 +99,51 @@ function updateNotes() {
             }
         }
     });
+    // Call the function to compare notes in the highlight rect with active notes
+    compareNotesInHighlightRectWithActiveNotes();
 }
 
-export { placeNoteOnStaff, updateNotes, generateRandomNote }
+/**
+ * Compares the notes in the highlight rect with the notes in the activeNotes set.
+ * Logs "match" to the console if there is a match.
+ */
+function compareNotesInHighlightRectWithActiveNotes() {
+    try {
+        const activeNotes = new Set(getActiveNotes().map(note => note.toLowerCase())) || new Set();
+        notesInHighlightRect.forEach((note) => {
+            if (activeNotes.has(note.textContent.toLowerCase())) {
+                console.log("match");
+            }
+        });
+    } catch (error) {
+        console.error("An error occurred:", error);
+        debugger; // Pauses execution for debugging
+    }
+}
+
+/**
+ * Logs the contents of the active notes set if it has changed.
+ */
+function checkAndLogActiveNotes() {
+    const currentActiveNotes = new Set(getActiveNotes().map(note => note.toLowerCase()));
+    if (!setsAreEqual(previousActiveNotes, currentActiveNotes)) {
+        console.log(`Active notes: ${Array.from(currentActiveNotes).join(', ')}`);
+        previousActiveNotes = currentActiveNotes;
+    }
+}
+
+/**
+ * Helper function to check if two sets are equal.
+ * @param {Set} setA - The first set to compare.
+ * @param {Set} setB - The second set to compare.
+ * @returns {boolean} True if the sets are equal, false otherwise.
+ */
+function setsAreEqual(setA, setB) {
+    if (setA.size !== setB.size) return false;
+    for (let item of setA) {
+        if (!setB.has(item)) return false;
+    }
+    return true;
+}
+
+export { placeNoteOnStaff, updateNotes, generateRandomNote, checkAndLogActiveNotes };

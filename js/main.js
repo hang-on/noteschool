@@ -29,5 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     } else {
         console.warn('WebMIDI is not supported in this browser.');
-    }    
+    }
+
 });

@@ -23,6 +23,10 @@ let activeNotes = new Set();
 // Global variable to control logging
 const isLoggingEnabled = false;  
 
+function getActiveNotes(){
+    return activeNotes
+}
+
 // Function to initialize MIDI access
 function initializeMIDI() {
     WebMidi.enable(function (err) {
@@ -86,4 +90,4 @@ function onMIDIMessage(event) {
     }
 }
 
-export {initializeMIDI, onMIDIMessage}
+export {initializeMIDI, onMIDIMessage, getActiveNotes}
