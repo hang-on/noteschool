@@ -53,18 +53,18 @@ function placeNoteOnStaff(container, noteData, x) {
 }
 
 /**
- * Checks if a note is within the highlight rectangle.
+ * Checks if a note is wholly within the highlight rectangle.
  * @param {HTMLElement} note - The note element to check.
  * @param {DOMRect} rect - The bounding rectangle of the highlight rectangle.
- * @returns {boolean} True if the note is within the highlight rectangle, false otherwise.
+ * @returns {boolean} True if the note is wholly within the highlight rectangle, false otherwise.
  */
 function isNoteInHighlightRect(note, rect) {
     const noteRect = note.getBoundingClientRect();
     return (
-        noteRect.left < rect.right &&
-        noteRect.right > rect.left &&
-        noteRect.top < rect.bottom &&
-        noteRect.bottom > rect.top
+        noteRect.left >= rect.left &&
+        noteRect.right <= rect.right &&
+        noteRect.top >= rect.top &&
+        noteRect.bottom <= rect.bottom
     );
 }
 
@@ -81,7 +81,6 @@ function updateNotes() {
         if (currentX <= 0) {
             note.remove();
             notesOnStaff.splice(index, 1);
-            notesInHighlightRect.delete(note);
         } else {
             note.style.left = `${currentX - 1}px`;
 
