@@ -1,4 +1,4 @@
-import { addNoteAtPosition, updateNotes, generateRandomNote, checkAndLogActiveNotes } from './notes.js';
+import { addNoteAtPosition, updateNotes, generateRandomNote } from './notes.js';
 import { onMIDIMessage, initializeMIDI } from './midi.js';
 
 // Initialize the application
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Update notes and check active notes every 100ms
     setInterval(() => {
         updateNotes();
-        checkAndLogActiveNotes();
+
     }, 50);
 
     // Set up MIDI message handler

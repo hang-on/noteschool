@@ -44,6 +44,52 @@ function generateRandomNote() {
     return notesData.find(note => note.note === randomNote);
 }
 
+/**
+ * Updates the position of active notes, moving them to the left.
+ * Removes notes that reach the left border of the staff.
+ * Compares the notes inside the highlight rect with active notes from the midi input,
+ * and checks for matches.
+ */
+function updateNotes() {
+    const highlightRect = document.querySelector('.highlight-rectangle').getBoundingClientRect();
+
+    notesOnStaff.forEach((note, index) => {
+        moveNoteLeft(note, index);
+        handleHighlightRect(note, highlightRect);
+    });
+
+    // Call the function to compare notes in the highlight rect with active notes
+    compareNotesInHighlightRectWithActiveNotes();
+}
+
+/**
+ * Moves a note to the left and removes it if it reaches the left border.
+ * @param {HTMLElement} note - The note element to move.
+ * @param {number} index - The index of the note in the notesOnStaff array.
+ */
+function moveNoteLeft(note, index) {
+    const currentX = parseInt(note.style.left, 10);
+    if (currentX <= 0) {
+        note.remove();
+        notesOnStaff.splice(index, 1);
+    } else {
+        note.style.left = `${currentX - 1}px`;
+    }
+}
+
+/**
+ * Handles the logic for notes entering or leaving the highlight rectangle.
+ * @param {HTMLElement} note - The note element to check.
+ * @param {DOMRect} highlightRect - The bounding rectangle of the highlight rectangle.
+ */
+function handleHighlightRect(note, highlightRect) {
+    const isInHighlight = isNoteInHighlightRect(note, highlightRect);
+    if (isInHighlight && !notesInHighlightRect.has(note)) {
+        notesInHighlightRect.add(note);
+    } else if (!isInHighlight && notesInHighlightRect.has(note)) {
+        notesInHighlightRect.delete(note);
+    }
+}
 
 /**
  * Checks if a note is wholly within the highlight rectangle.
@@ -59,34 +105,6 @@ function isNoteInHighlightRect(note, rect) {
         noteRect.top >= rect.top &&
         noteRect.bottom <= rect.bottom
     );
-}
-
-/**
- * Updates the position of active notes, moving them to the left.
- * Removes notes that reach the left border of the staff.
- * Logs when a note enters or leaves the highlight rectangle.
- */
-function updateNotes() {
-    const highlightRect = document.querySelector('.highlight-rectangle').getBoundingClientRect();
-
-    notesOnStaff.forEach((note, index) => {
-        const currentX = parseInt(note.style.left, 10);
-        if (currentX <= 0) {
-            note.remove();
-            notesOnStaff.splice(index, 1);
-        } else {
-            note.style.left = `${currentX - 1}px`;
-
-            const isInHighlight = isNoteInHighlightRect(note, highlightRect);
-            if (isInHighlight && !notesInHighlightRect.has(note)) {
-                notesInHighlightRect.add(note);
-            } else if (!isInHighlight && notesInHighlightRect.has(note)) {
-                notesInHighlightRect.delete(note);
-            }
-        }
-    });
-    // Call the function to compare notes in the highlight rect with active notes
-    compareNotesInHighlightRectWithActiveNotes();
 }
 
 /**
@@ -107,29 +125,6 @@ function compareNotesInHighlightRectWithActiveNotes() {
     }
 }
 
-/**
- * Logs the contents of the active notes set if it has changed.
- */
-function checkAndLogActiveNotes() {
-    const currentActiveNotes = new Set(getActiveNotes().map(note => note.toLowerCase()));
-    if (!setsAreEqual(previousActiveNotes, currentActiveNotes)) {
-        console.log(`Active notes: ${Array.from(currentActiveNotes).join(', ')}`);
-        previousActiveNotes = currentActiveNotes;
-    }
-}
 
-/**
- * Helper function to check if two sets are equal.
- * @param {Set} setA - The first set to compare.
- * @param {Set} setB - The second set to compare.
- * @returns {boolean} True if the sets are equal, false otherwise.
- */
-function setsAreEqual(setA, setB) {
-    if (setA.size !== setB.size) return false;
-    for (let item of setA) {
-        if (!setB.has(item)) return false;
-    }
-    return true;
-}
 
-export { addNoteAtPosition, updateNotes, generateRandomNote, checkAndLogActiveNotes };
+export { addNoteAtPosition, updateNotes, generateRandomNote};
