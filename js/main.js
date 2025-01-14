@@ -1,4 +1,4 @@
-import { initializeMIDI } from "./midi.js";
+import { initializeMIDI, onMIDIMessage } from "./midi.js";
 import { placeNoteOnStaff, updateNotes, generateRandomNote } from "./notes.js"
 
 // Initialize the application
@@ -19,4 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Update notes every 20ms
     setInterval(updateNotes, 30);
+
+    // Set up MIDI message handler
+    if (navigator.requestMIDIAccess) {
+        navigator.requestMIDIAccess().then((midiAccess) => {
+            midiAccess.inputs.forEach((input) => {
+                input.onmidimessage = onMIDIMessage;
+            });
+        });
+    } else {
+        console.warn('WebMIDI is not supported in this browser.');
+    }    
 });

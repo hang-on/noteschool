@@ -20,6 +20,9 @@ const NOTE_OFF = 128;
 
 let activeNotes = new Set();
 
+// Global variable to control logging
+const isLoggingEnabled = false;  
+
 // Function to initialize MIDI access
 function initializeMIDI() {
     WebMidi.enable(function (err) {
@@ -59,27 +62,28 @@ function onMIDIMessage(event) {
     const sprNote = midiToSpr[midiNote];
 
     if (sprNote === undefined) {
-        console.log(`Note ${midiNote} is not mapped to any note on the midi-to-note map.`);
+        if (isLoggingEnabled) console.log(`Note ${midiNote} is not mapped to any note on the midi-to-note map.`);
         return;
     }
 
     if (command === NOTE_ON && velocity > 0) { 
         if (!activeNotes.has(sprNote)) {
             activeNotes.add(sprNote);
-            console.log(`Note on: ${sprNote} (velocity: ${velocity})`);
+            if (isLoggingEnabled) console.log(`Note on: ${sprNote} (velocity: ${velocity})`);
         }
     } else if (command === NOTE_OFF || (command === NOTE_ON && velocity === 0)) {
         if (activeNotes.has(sprNote)) {
             activeNotes.delete(sprNote);
-            console.log(`Note off: ${sprNote}`);
+            if (isLoggingEnabled) console.log(`Note off: ${sprNote}`);
         }
     }
 
-    console.log(`MIDI message received: ${event.data}`);
-    console.log(`Command: ${command}, Note: ${midiNote}, Velocity: ${velocity}`);
-    console.log(`Played Note: ${sprNote}`);
-    console.log(`Active Notes: ${Array.from(activeNotes).join(', ')}`);
-
+    if (isLoggingEnabled) {
+        console.log(`MIDI message received: ${event.data}`);
+        console.log(`Command: ${command}, Note: ${midiNote}, Velocity: ${velocity}`);
+        console.log(`Played Note: ${sprNote}`);
+        console.log(`Active Notes: ${Array.from(activeNotes).join(', ')}`);
+    }
 }
 
 export {initializeMIDI, onMIDIMessage}
