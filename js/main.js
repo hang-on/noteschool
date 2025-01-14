@@ -1,3 +1,6 @@
+import { initializeMIDI } from "./midi.js";
+import { placeNoteOnStaff, updateNotes, generateRandomNote } from "./notes.js"
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', () => {
     initializeMIDI();

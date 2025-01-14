@@ -81,3 +81,5 @@ function onMIDIMessage(event) {
     console.log(`Active Notes: ${Array.from(activeNotes).join(', ')}`);
 
 }
+
+export {initializeMIDI, onMIDIMessage}
