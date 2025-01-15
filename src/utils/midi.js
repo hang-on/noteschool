@@ -1,4 +1,4 @@
-const sprToMidi = {
+const scientificPitchNotationToMIDI = {
     'C0': 12, 'C#0': 13, 'D0': 14, 'D#0': 15, 'E0': 16, 'F0': 17, 'F#0': 18, 'G0': 19, 'G#0': 20, 'A0': 21, 'A#0': 22, 'B0': 23,
     'C1': 24, 'C#1': 25, 'D1': 26, 'D#1': 27, 'E1': 28, 'F1': 29, 'F#1': 30, 'G1': 31, 'G#1': 32, 'A1': 33, 'A#1': 34, 'B1': 35,
     'C2': 36, 'C#2': 37, 'D2': 38, 'D#2': 39, 'E2': 40, 'F2': 41, 'F#2': 42, 'G2': 43, 'G#2': 44, 'A2': 45, 'A#2': 46, 'B2': 47,
@@ -10,9 +10,9 @@ const sprToMidi = {
     'C8': 108
 };
 
-const midiToSpr = {};
-for (let note in sprToMidi) {
-    midiToSpr[sprToMidi[note]] = note;
+const MIDIToScientificPitchNotation = {};
+for (let note in scientificPitchNotationToMIDI) {
+    MIDIToScientificPitchNotation[scientificPitchNotationToMIDI[note]] = note;
 }
 
 const NOTE_ON = 144;
@@ -23,12 +23,12 @@ let activeNotes = new Set();
 // Global variable to control logging
 const isLoggingEnabled = false;  
 
-function getActiveNotes(){
+export function getActiveNotes(){
     return activeNotes
 }
 
 // Function to initialize MIDI access
-function initializeMIDI() {
+export function initializeMIDI() {
     WebMidi.enable(function (err) {
         if (err) {
             console.error(`Failed to enable WebMidi: ${err}`);
@@ -59,11 +59,11 @@ function initializeMIDI() {
 }
 
 // Function to handle incoming MIDI messages
-function onMIDIMessage(event) {
+export function onMIDIMessage(event) {
     // MIDI message structure: [command, midiNote, velocity]
     const [command, midiNote, velocity] = event.data;
     // Scientific Pitch Notation (spr)
-    const sprNote = midiToSpr[midiNote];
+    const sprNote = MIDIToScientificPitchNotation[midiNote];
 
     if (sprNote === undefined) {
         if (isLoggingEnabled) console.log(`Note ${midiNote} is not mapped to any note on the midi-to-note map.`);
@@ -89,5 +89,3 @@ function onMIDIMessage(event) {
         console.log(`Active Notes: ${Array.from(activeNotes).join(', ')}`);
     }
 }
-
-export {initializeMIDI, onMIDIMessage, getActiveNotes}

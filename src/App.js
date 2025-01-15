@@ -1,6 +1,6 @@
 
 import { addNoteAtPosition, updateNotes, generateRandomNote, compareNotesWithActiveNotes } from './notes.js';
-import { onMIDIMessage, initializeMIDI } from './utils/midi.js';
+import { onMIDIMessage, initializeMIDI } from './utils/index.js';
 
 const App = () => {
     document.addEventListener('DOMContentLoaded', () => {

@@ -1,0 +1,1 @@
+export { initializeMIDI, onMIDIMessage, getActiveNotes } from './midi.js';
