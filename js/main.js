@@ -1,27 +1,9 @@
-import { addNoteAtPosition, updateNotes, generateRandomNote } from './notes.js';
+import { addNoteAtPosition, updateNotes, generateRandomNote, compareNotesWithActiveNotes } from './notes.js';
 import { onMIDIMessage, initializeMIDI } from './midi.js';
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', () => {
     initializeMIDI();
-
-    // Generate a new note every 1500ms
-    setInterval(() => {
-        // 10% chance to skip generating a note
-        if (Math.random() < 0.15) {
-            return;
-        }
-        const notesContainer = document.querySelector('.notes-container');
-        const randomNoteData = generateRandomNote();
-        const staffWidth = notesContainer.clientWidth;
-        addNoteAtPosition(notesContainer, staffWidth - 400, randomNoteData.y, randomNoteData.strikeThrough, randomNoteData.note);
-    }, 2000);
-
-    // Update notes and check active notes every 100ms
-    setInterval(() => {
-        updateNotes();
-
-    }, 50);
 
     // Set up MIDI message handler
     if (navigator.requestMIDIAccess) {

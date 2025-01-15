@@ -1,6 +1,5 @@
 import notesData from "./notesData.js";
 import { getActiveNotes } from "./midi.js";
-import { isNoteInHighlightRect, handleHighlightRect, getNotesInHighlightRect } from "./highlightRect.js";
 
 const notePool = ['c3', 'd3', 'e3'];
 
@@ -41,46 +40,27 @@ function generateRandomNote() {
 }
 
 /**
- * Moves a note to the left and removes it if it reaches the left border.
- * @param {HTMLElement} note - The note element to move.
- * @param {number} index - The index of the note in the notesOnStaff array.
- */
-function moveNoteLeft(note, index) {
-    const currentX = parseInt(note.style.left, 10);
-    if (currentX <= 0) {
-        note.remove();
-        notesOnStaff.splice(index, 1);
-    } else {
-        note.style.left = `${currentX - 1}px`;
-    }
-}
-
-/**
- * Updates the position of active notes, moving them to the left.
+ * Updates the position of active notes.
  * Removes notes that reach the left border of the staff.
- * Logs when a note enters or leaves the highlight rectangle.
  */
 function updateNotes() {
-    const highlightRect = document.querySelector('.highlight-rectangle').getBoundingClientRect();
-
     notesOnStaff.forEach((note, index) => {
-        moveNoteLeft(note, index);
-        handleHighlightRect(note, highlightRect);
+        const currentX = parseInt(note.style.left, 10);
+        if (currentX <= 0) {
+            note.remove();
+            notesOnStaff.splice(index, 1);
+        }
     });
-
-    // Call the function to compare notes in the highlight rect with active notes
-    compareNotesInHighlightRectWithActiveNotes();
 }
 
 /**
- * Compares the notes in the highlight rect with the notes in the activeNotes set.
+ * Compares the notes with the notes in the activeNotes set.
  * Logs "match" to the console if there is a match.
  */
-function compareNotesInHighlightRectWithActiveNotes() {
+function compareNotesWithActiveNotes() {
     try {
         const activeNotes = new Set(getActiveNotes().map(note => note.toLowerCase())) || new Set();
-        const x = getNotesInHighlightRect()
-        x.forEach((note) => {
+        notesOnStaff.forEach((note) => {
             if (activeNotes.has(note.textContent.toLowerCase())) {
                 console.log("match");
             }
@@ -91,4 +71,4 @@ function compareNotesInHighlightRectWithActiveNotes() {
     }
 }
 
-export { addNoteAtPosition, updateNotes, generateRandomNote };
+export { addNoteAtPosition, updateNotes, generateRandomNote, compareNotesWithActiveNotes };

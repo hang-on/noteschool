@@ -74,16 +74,6 @@ body {
     margin: 20px 0;
 }
 
-.highlight-rectangle {
-    position: absolute;
-    width: 40px;
-    height: 100%; /* Make it as high as the staff */
-    border: 2px solid red; /* Red outline */
-    background-color: transparent; /* No fill color */
-    top: 0; /* Align with the top of the staff */
-    left: 100px; /* Adjust as needed to position the rectangle */
-}
-
 .staff-line {
     position: absolute;
     left: 0;
@@ -129,6 +119,7 @@ body {
     background-color: black;
     border-radius: 50%;
     pointer-events: auto; /* Allow interaction with the notes */
+    /* Add necessary styles for notes */
 }
 
 .strike-through-note::before {
@@ -142,21 +133,8 @@ body {
     transform: translateY(-50%);
 }
 
-/* MIDI Section Styles */
-.midi-section {
-    margin-top: 20px;
-    width: 100%;
-}
-
-.midi-messages {
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    width: 100%;
-    max-height: 150px;
-    overflow-y: auto;
-    margin-bottom: 20px;
+.strike-through-note {
+    /* Add necessary styles for strike-through notes */
 }
 
 /* Status Section Styles */
