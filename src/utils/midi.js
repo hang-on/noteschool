@@ -55,8 +55,7 @@ export function getActiveNotes() {
 export function initializeMIDI() {
     WebMidi.enable(function (err) {
         if (err) {
-            console.error(`Failed to enable WebMidi: ${err}`);
-            document.getElementById('error-message').innerText = `Failed to enable WebMidi: ${err}`;
+            alert('WebMIDI is not supported in this browser.');
             return;
         }
 
