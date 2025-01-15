@@ -1,4 +1,4 @@
-import { addNoteAtPosition, generateRandomNote } from './notes.js';
+import { addNoteAtPosition, generateRandomNote, setNoteColor, removeNoteFromStaff } from './notes.js';
 import { onMIDIMessage, initializeMIDI } from './utils/index.js';
 
 const App = () => {
@@ -15,7 +15,14 @@ const App = () => {
             const randomNoteData = generateRandomNote();
             addNoteAtPosition(notesContainer, i * spacing + 50, randomNoteData.y, randomNoteData.strikeThrough, randomNoteData.note);
         }
+        // Set the color of the note
+        setNoteColor(1, 'red');
+
+        // Remove the note
+        removeNoteFromStaff(2);
+
     });
+
 };
 
 export default App;

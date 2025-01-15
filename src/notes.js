@@ -24,7 +24,6 @@ function addNoteAtPosition(container, x, y, strikeThrough = false, noteName) {
     }
     note.style.left = `${x}px`;
     note.style.top = `${y}px`;
-    note.textContent = noteName; // Set the text content to the note name
     container.appendChild(note);
     notesOnStaff.push(note); // Add the note to the notesOnStaff array
     return note;
@@ -39,4 +38,32 @@ function generateRandomNote() {
     return fClefNotes.find(note => note.note === randomNote);
 }
 
-export { addNoteAtPosition, generateRandomNote };
+/**
+ * Sets the color of a note at a specific index on the staff.
+ * @param {number} index - The index of the note to set the color for (0-7).
+ * @param {string} color - The color to set.
+ */
+function setNoteColor(index, color) {
+    if (index >= 0 && index < notesOnStaff.length) {
+        const note = notesOnStaff[index];
+        note.style.backgroundColor = color;
+    } else {
+        console.error('Invalid index.');
+    }
+}
+
+/**
+ * Removes a note at a specific index from the staff.
+ * @param {number} index - The index of the note to remove (0-7).
+ */
+function removeNoteFromStaff(index) {
+    if (index >= 0 && index < notesOnStaff.length) {
+        const note = notesOnStaff[index];
+        note.parentNode.removeChild(note);
+        notesOnStaff.splice(index, 1);
+    } else {
+        console.error('Invalid index.');
+    }
+}
+
+export { addNoteAtPosition, generateRandomNote, setNoteColor, removeNoteFromStaff };
