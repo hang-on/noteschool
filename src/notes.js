@@ -1,13 +1,11 @@
 import fClefNotes from "./data/fClefNotes.js";
 import { getActiveNotes } from "./utils/midi.js";
 
-
 // The pool from which to generate random notes
 const notePool = ['c3', 'd3', 'e3'];
 
 // Array to keep track of active notes on the staff
 const notesOnStaff = [];
-
 
 /**
  * Adds a note at a specific position within the container.
@@ -33,15 +31,12 @@ function addNoteAtPosition(container, x, y, strikeThrough = false, noteName) {
 }
 
 /**
- * Generates a random note from the provided note pool.
- * @param {Array} notePool - The pool of notes to choose from.
- * @param {Array} noteData - The array of note data to search in.
+ * Generates a random note from the global note pool.
  * @returns {Object} The generated note data.
  */
-function generateRandomNote(notePool, noteData) {
+function generateRandomNote() {
     const randomNote = notePool[Math.floor(Math.random() * notePool.length)];
-    return noteData.find(note => note.note === randomNote);
+    return fClefNotes.find(note => note.note === randomNote);
 }
-
 
 export { addNoteAtPosition, generateRandomNote };
