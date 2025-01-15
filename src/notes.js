@@ -1,5 +1,5 @@
 import notesData from "./notesData.js";
-import { getActiveNotes } from "./midi.js";
+import { getActiveNotes } from "./utils/midi.js";
 
 const notePool = ['c3', 'd3', 'e3'];
 
