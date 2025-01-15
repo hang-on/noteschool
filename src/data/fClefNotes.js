@@ -1,5 +1,5 @@
-// Data structure for notes
-const notesData = [
+// Data structure for notes on the f clef.
+const fClefNotes = [
     { note: 'c4', y: 30, strikeThrough: true },
     { note: 'b3', y: 40, strikeThrough: false },
     { note: 'a3', y: 50, strikeThrough: false },
@@ -17,4 +17,4 @@ const notesData = [
     { note: 'c2', y: 170, strikeThrough: true }
 ];
 
-export default notesData;
+export default fClefNotes;
