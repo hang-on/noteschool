@@ -43,36 +43,5 @@ function generateRandomNote(notePool, noteData) {
     return noteData.find(note => note.note === randomNote);
 }
 
-/**
- * Updates the position of active notes.
- * Removes notes that reach the left border of the staff.
- */
-function updateNotes() {
-    notesOnStaff.forEach((note, index) => {
-        const currentX = parseInt(note.style.left, 10);
-        if (currentX <= 0) {
-            note.remove();
-            notesOnStaff.splice(index, 1);
-        }
-    });
-}
 
-/**
- * Compares the notes with the notes in the activeNotes set.
- * Logs "match" to the console if there is a match.
- */
-function compareNotesWithActiveNotes() {
-    try {
-        const activeNotes = new Set(getActiveNotes().map(note => note.toLowerCase())) || new Set();
-        notesOnStaff.forEach((note) => {
-            if (activeNotes.has(note.textContent.toLowerCase())) {
-                console.log("match");
-            }
-        });
-    } catch (error) {
-        console.error("An error occurred:", error);
-        debugger; // Pauses execution for debugging
-    }
-}
-
-export { addNoteAtPosition, updateNotes, generateRandomNote, compareNotesWithActiveNotes };
+export { addNoteAtPosition, generateRandomNote };

@@ -1,5 +1,5 @@
 
-import { addNoteAtPosition, updateNotes, generateRandomNote, compareNotesWithActiveNotes } from './notes.js';
+import { addNoteAtPosition, generateRandomNote } from './notes.js';
 import { onMIDIMessage, initializeMIDI } from './utils/index.js';
 
 const App = () => {
