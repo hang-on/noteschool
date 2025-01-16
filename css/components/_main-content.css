@@ -1,0 +1,29 @@
+/* Main Content Styles */
+.main-content {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 10px;
+    margin: 20px;
+    position: relative;
+}
+
+/* Status Section Styles */
+.status-section {
+    margin-top: 20px;
+}
+
+.status-bar-container {
+    width: 100%;
+}
+
+.status-bar {
+    background-color: #2196F3;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    flex-grow: 1;
+    text-align: center;
+}
