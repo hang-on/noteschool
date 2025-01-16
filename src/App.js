@@ -1,5 +1,5 @@
 import { addNoteAtPosition, generateRandomNote, setNoteColor, removeNoteFromStaff } from './notes.js';
-import { onMIDIMessage, initializeMIDI } from './utils/index.js';
+import { onMIDIMessage, initializeMIDI, getActiveNotes } from './utils/index.js';
 
 const App = () => {
     document.addEventListener('DOMContentLoaded', () => {
@@ -11,18 +11,26 @@ const App = () => {
         const staffWidth = notesContainer.clientWidth;
         const spacing = staffWidth / 8;
 
+        let notes = [];
         for (let i = 0; i < 8; i++) {
             const randomNoteData = generateRandomNote();
-            addNoteAtPosition(notesContainer, i * spacing + 50, randomNoteData.y, randomNoteData.strikeThrough, randomNoteData.note);
+            const note = addNoteAtPosition(notesContainer, i * spacing + 50, randomNoteData.y, randomNoteData.strikeThrough, randomNoteData.name);
+            notes.push(note);
         }
-        // Set the color of the note
-        setNoteColor(1, 'red');
 
-        // Remove the note
-        removeNoteFromStaff(2);
+        const checkLeftmostNote = () => {
+            if (notes.length === 0) return;
 
+            const activeNotes = getActiveNotes();
+            const leftmostNote = notes[0].getAttribute('data-note-name'); // Get the note name from the data attribute
+
+            if (activeNotes.has(leftmostNote)) {
+                console.log(`Leftmost note ${leftmostNote} matches active notes.`);
+            }
+        };
+
+        setInterval(checkLeftmostNote, 1000 / 60); // Check 60 times per second
     });
-
 };
 
 export default App;

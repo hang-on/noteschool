@@ -6,7 +6,7 @@ const NOTE_OFF = 128;
 let activeNotes = new Set();
 
 // Global variable to control logging
-const isLoggingEnabled = false;
+const isLoggingEnabled = true;
 
 const scientificPitchNotationToMIDI = {
     'c0': 12, 'c#0': 13, 'd0': 14, 'd#0': 15, 'e0': 16, 'f0': 17, 'f#0': 18, 'g0': 19, 'g#0': 20, 'a0': 21, 'a#0': 22, 'b0': 23,

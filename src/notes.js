@@ -24,6 +24,7 @@ function addNoteAtPosition(container, x, y, strikeThrough = false, noteName) {
     }
     note.style.left = `${x}px`;
     note.style.top = `${y}px`;
+    note.setAttribute('data-note-name', noteName); // Set the note name as a data attribute
     container.appendChild(note);
     notesOnStaff.push(note); // Add the note to the notesOnStaff array
     return note;
@@ -35,7 +36,7 @@ function addNoteAtPosition(container, x, y, strikeThrough = false, noteName) {
  */
 function generateRandomNote() {
     const randomNote = notePool[Math.floor(Math.random() * notePool.length)];
-    return fClefNotes.find(note => note.note === randomNote);
+    return fClefNotes.find(note => note.name === randomNote);
 }
 
 /**
@@ -44,6 +45,7 @@ function generateRandomNote() {
  * @param {string} color - The color to set.
  */
 function setNoteColor(index, color) {
+    console.log(`notesOnStaff length: ${notesOnStaff.length}`);
     if (index >= 0 && index < notesOnStaff.length) {
         const note = notesOnStaff[index];
         note.style.backgroundColor = color;
@@ -57,6 +59,7 @@ function setNoteColor(index, color) {
  * @param {number} index - The index of the note to remove (0-7).
  */
 function removeNoteFromStaff(index) {
+    console.log(`notesOnStaff length: ${notesOnStaff.length}`);
     if (index >= 0 && index < notesOnStaff.length) {
         const note = notesOnStaff[index];
         note.parentNode.removeChild(note);
