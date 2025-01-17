@@ -2,7 +2,7 @@ import fClefNotes from "./data/fClefNotes.js";
 import { getActiveNotes } from "./utils/midi.js";
 
 // The pool from which to generate random notes
-const notePool = ['c3', 'd3', 'e3', 'f3', 'g3'];
+const notePool = ['c3', 'd3', 'e3', 'f3', 'g3', 'b3', 'a3'];
 
 // Array to keep track of active notes on the staff
 const notesOnStaff = [];
