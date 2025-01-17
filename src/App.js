@@ -48,11 +48,12 @@ const App = () => {
             
             if (readyForInput === true && activeNotes.has(focusNote)) {
                 setFocusNoteColor('lightblue');
-                correctSound.play(); // Play the sound
                 updateFocusNote();
                 readyForInput = false;
                 if (isFocusNoteOutOfBounds()){
                     initializeStaff();
+                    correctSound.play(); // Play the sound
+
                 }
 
             }
