@@ -32,6 +32,9 @@ export function initializeStaff(){
     // Clear existing notes
     notesOnStaff.length = 0;
 
+    // Reset index
+    focusNoteIndex = 0;
+
     // Generate random notes and place them evenly spaced on the staff
     const notesContainer = document.querySelector('.notes-container');
     notesContainer.innerHTML = ''; // Clear the container
