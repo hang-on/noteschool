@@ -8,7 +8,7 @@ const notePool = ['c3', 'd3', 'e3', 'f3', 'g3'];
 const notesOnStaff = [];
 // Index for notesOnStaff. Used for testing, changing etc.
 let focusNoteIndex = 0;
-let numberOfNotes = 8;
+let numberOfNotes = 16;
 
 
 export function getFocusNote(){
