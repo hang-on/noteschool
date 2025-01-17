@@ -6,6 +6,29 @@ const notePool = ['c3', 'd3', 'e3', 'f3', 'g3'];
 
 // Array to keep track of active notes on the staff
 const notesOnStaff = [];
+// Focus note (an imdex for notesOnStaff. Used for testing, changing etc,)
+const focusNote = 0;
+
+export function getFocusNote(){
+    return notesOnStaff[focusNote];
+}
+
+
+export function initializeStaff(numberOfNotes = 8){
+    // Generate 8 random notes and place them evenly spaced on the staff
+    const notesContainer = document.querySelector('.notes-container');
+
+    const staffWidth = notesContainer.clientWidth;
+    const spacing = staffWidth / (numberOfNotes+1);
+
+    let notes = [];
+    for (let i = 0; i < numberOfNotes; i++) {
+        const randomNoteData = generateRandomNote();
+        const note = addNoteAtPosition(notesContainer, i * spacing + spacing, randomNoteData.y, randomNoteData.strikeThrough, randomNoteData.name);
+        notes.push(note);
+    }
+}
+
 
 /**
  * Adds a note at a specific position within the container.
