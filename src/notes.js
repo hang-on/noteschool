@@ -7,10 +7,10 @@ const notePool = ['c3', 'd3', 'e3', 'f3', 'g3'];
 // Array to keep track of active notes on the staff
 const notesOnStaff = [];
 // Focus note (an imdex for notesOnStaff. Used for testing, changing etc,)
-const focusNote = 0;
+const focusNoteIndex = 0;
 
 export function getFocusNote(){
-    return notesOnStaff[focusNote];
+    return notesOnStaff[focusNoteIndex];
 }
 
 
