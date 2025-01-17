@@ -9,21 +9,3 @@
     margin: 20px;
     position: relative;
 }
-
-/* Status Section Styles */
-.status-section {
-    margin-top: 20px;
-}
-
-.status-bar-container {
-    width: 100%;
-}
-
-.status-bar {
-    background-color: #2196F3;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    flex-grow: 1;
-    text-align: center;
-}
