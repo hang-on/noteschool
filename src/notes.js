@@ -7,28 +7,47 @@ const notePool = ['c3', 'd3', 'e3', 'f3', 'g3'];
 // Array to keep track of active notes on the staff
 const notesOnStaff = [];
 // Index for notesOnStaff. Used for testing, changing etc.
-const focusNoteIndex = 0;
+let focusNoteIndex = 0;
+let numberOfNotes = 8;
+
 
 export function getFocusNote(){
     return notesOnStaff[focusNoteIndex];
 }
 
+export function updateFocusNote(){
+    focusNoteIndex++;
+    console.log(focusNoteIndex);
+}
 
-export function initializeStaff(numberOfNotes = 8){
-    // Generate 8 random notes and place them evenly spaced on the staff
-    const notesContainer = document.querySelector('.notes-container');
-
-    const staffWidth = notesContainer.clientWidth;
-    const spacing = staffWidth / (numberOfNotes+1);
-
-    let notes = [];
-    for (let i = 0; i < numberOfNotes; i++) {
-        const randomNoteData = generateRandomNote();
-        const note = addNoteAtPosition(notesContainer, i * spacing + spacing, randomNoteData.y, randomNoteData.strikeThrough, randomNoteData.name);
-        notes.push(note);
+export function isFocusNoteOutOfBounds(){
+    if (focusNoteIndex >= numberOfNotes) {
+        return true
+    } else {
+        return false
     }
 }
 
+export function initializeStaff(){
+    // Clear existing notes
+    notesOnStaff.length = 0;
+
+    // Generate random notes and place them evenly spaced on the staff
+    const notesContainer = document.querySelector('.notes-container');
+    notesContainer.innerHTML = ''; // Clear the container
+
+    const staffWidth = notesContainer.clientWidth;
+    const spacing = staffWidth / (numberOfNotes + 1);
+
+    for (let i = 0; i < numberOfNotes; i++) {
+        const randomNoteData = generateRandomNote();
+        const note = addNoteAtPosition(notesContainer, i * spacing + spacing, randomNoteData.y, randomNoteData.strikeThrough, randomNoteData.name);
+    }
+    console.log(notesOnStaff[0]);
+    console.log(notesOnStaff[1]);
+    console.log(notesOnStaff[2]);
+    console.log(notesOnStaff[3]);
+}
 
 /**
  * Adds a note at a specific position within the container.
@@ -67,29 +86,10 @@ function generateRandomNote() {
  * @param {number} index - The index of the note to set the color for (0-7).
  * @param {string} color - The color to set.
  */
-function setNoteColor(index, color) {
-    console.log(`notesOnStaff length: ${notesOnStaff.length}`);
-    if (index >= 0 && index < notesOnStaff.length) {
-        const note = notesOnStaff[index];
-        note.style.backgroundColor = color;
-    } else {
-        console.error('Invalid index.');
-    }
+export function setFocusNoteColor(color) {
+    //console.log(`notesOnStaff length: ${notesOnStaff.length}`);
+    notesOnStaff[focusNoteIndex].style.backgroundColor = color;
 }
 
-/**
- * Removes a note at a specific index from the staff.
- * @param {number} index - The index of the note to remove (0-7).
- */
-function removeNoteFromStaff(index) {
-    console.log(`notesOnStaff length: ${notesOnStaff.length}`);
-    if (index >= 0 && index < notesOnStaff.length) {
-        const note = notesOnStaff[index];
-        note.parentNode.removeChild(note);
-        notesOnStaff.splice(index, 1);
-    } else {
-        console.error('Invalid index.');
-    }
-}
 
-export { addNoteAtPosition, generateRandomNote, setNoteColor, removeNoteFromStaff };
+export { addNoteAtPosition, generateRandomNote };
