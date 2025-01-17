@@ -17,7 +17,6 @@ export function getFocusNote(){
 
 export function updateFocusNote(){
     focusNoteIndex++;
-    console.log(focusNoteIndex);
 }
 
 export function isFocusNoteOutOfBounds(){
@@ -46,10 +45,6 @@ export function initializeStaff(){
         const randomNoteData = generateRandomNote();
         const note = addNoteAtPosition(notesContainer, i * spacing + spacing, randomNoteData.y, randomNoteData.strikeThrough, randomNoteData.name);
     }
-    console.log(notesOnStaff[0]);
-    console.log(notesOnStaff[1]);
-    console.log(notesOnStaff[2]);
-    console.log(notesOnStaff[3]);
 }
 
 /**
