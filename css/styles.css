@@ -1,10 +1,10 @@
 /* Import base styles */
-@import 'base/_general.css';
+@import "base/_general.css";
 
 /* Import component styles */
-@import 'components/_header.css';
-@import 'components/_main-content.css';
+@import "components/_header.css";
+@import "components/_main-content.css";
 
 /* Import music notation styles */
-@import 'notes/_notes.css';
+@import "notes/_notes.css";
 
