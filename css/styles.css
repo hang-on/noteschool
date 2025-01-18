@@ -2,9 +2,9 @@
 @import "base/general.css";
 
 /* Import component styles */
-@import "components/_header.css";
-@import "components/_main-content.css";
+@import "components/header.css";
+@import "components/main-content.css";
 
 /* Import music notation styles */
-@import "notes/_notes.css";
+@import "notes/notes.css";
 
