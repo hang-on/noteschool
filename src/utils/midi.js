@@ -78,7 +78,7 @@ function onMIDISuccess(midiAccess) {
     }
 
     if (inputCount === 0) {
-        console.log('No MIDI inputs detected.');
+        alert('No MIDI inputs detected.');
     } else {
         console.log(`Total MIDI inputs detected: ${inputCount}`);
     }
