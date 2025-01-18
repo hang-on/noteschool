@@ -13,7 +13,7 @@
     top: 10px; /* Adjust as needed */
     right: 10px; /* Adjust as needed */
     margin-left: 10px; /* Adjust as needed */
-    border: 1px solid black; /* Thin outline */
+    border: 1px solid var(--rich-black); /* Thin outline */
     width: 50px; /* Adjust size as needed */
     height: auto;
 }
@@ -34,7 +34,7 @@
     left: 0;
     right: 0;
     height: 1px;
-    background-color: black;
+    background-color: var(--rich-black);
 }
 
 .staff-line:nth-child(1) {
@@ -71,7 +71,7 @@
     position: absolute;
     width: 20px;
     height: 20px;
-    background-color: black;
+    background-color: var(--rich-black);
     border-radius: 50%;
     pointer-events: auto; /* Allow interaction with the notes */
     /* Add necessary styles for notes */
@@ -84,7 +84,7 @@
     left: -10px; /* Adjust to center the line */
     width: 40px; /* Length of the line */
     height: 1px;
-    background-color: black;
+    background-color: var(--rich-black);
     transform: translateY(-50%);
 }
 

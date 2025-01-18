@@ -35,6 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add event listener for user interaction to enable sound playback
     document.addEventListener('click', startNewSession);
 
+    // Get the value of the --cambridge-blue CSS variable
+    const cambridgeBlue = getComputedStyle(document.documentElement).getPropertyValue('--cambridge-blue').trim();
 
     const update = () => {
         const activeNotes = getActiveNotes();
@@ -47,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         
         if (readyForInput === true && activeNotes.has(focusNote)) {
-            setFocusNoteColor('lightblue');
+            setFocusNoteColor(cambridgeBlue);
             updateFocusNote();
             readyForInput = false;
             if (isFocusNoteOutOfBounds()){

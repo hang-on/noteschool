@@ -1,3 +1,6 @@
+/* Import color variables */
+@import "base/colors.css";
+
 /* Import base styles */
 @import "base/general.css";
 
@@ -7,4 +10,3 @@
 
 /* Import music notation styles */
 @import "notes/notes.css";
-

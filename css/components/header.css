@@ -2,8 +2,8 @@
 .header {
     text-align: center;
     padding: 20px;
-    background-color: #4CAF50;
-    color: white;
+    background-color: var(--teal);
+    color: var(--ash-gray);
     width: 100%;
 }
 
@@ -15,4 +15,5 @@
 .subtitle {
     font-size: 1.5em;
     margin: 10px 0;
+    color: var(--rich-black);
 }
