@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Preload the sound
-    const correctSound = new Audio('./sfx/correct.mp3');
+    const succesSound = new Audio('./sfx/success.mp3');
             
     let readyForInput = false; 
 
@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to enable sound playback after user interaction
     const startNewSession = () => {
         initializeStaff();     
-        correctSound.play().then(() => {
-            correctSound.pause();
-            correctSound.currentTime = 0;
+        succesSound.play().then(() => {
+            succesSound.pause();
+            succesSound.currentTime = 0;
             document.removeEventListener('click', startNewSession);
             messageLabel.textContent = ''; // Clear the welcome message
         }).catch((error) => {
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateFocusNote();
             readyForInput = false;
             if (isFocusNoteOutOfBounds()){
-                correctSound.play(); // Play the sound
+                succesSound.play(); // Play the sound
                 initializeStaff();
 
             }
