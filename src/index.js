@@ -7,8 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Preload the sound
-    const succesSound = new Audio('./sfx/success.mp3');
-            
+
     let readyForInput = false; 
 
     // Get the message label element
@@ -17,10 +16,26 @@ document.addEventListener('DOMContentLoaded', () => {
     messageLabel.style.textAlign = 'center';
     messageLabel.style.marginBottom = '10px';
 
+    const succesSound = new Audio('./sfx/success.mp3');
 
     // Function to enable sound playback after user interaction
     const startNewSession = () => {
         initializeStaff();     
+        
+            
+        // Create an AudioContext
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const track = audioContext.createMediaElementSource(succesSound);
+    
+        // Create a GainNode to control the volume
+        const gainNode = audioContext.createGain();
+        gainNode.gain.value = 2; // Amplify the sound (2x volume)
+    
+        // Connect the track to the gain node and the gain node to the audio context's destination
+        track.connect(gainNode).connect(audioContext.destination);
+    
+            
+        
         succesSound.play().then(() => {
             succesSound.pause();
             succesSound.currentTime = 0;

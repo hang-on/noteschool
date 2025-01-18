@@ -107,7 +107,7 @@ function onMIDIMessage(event) {
     switch (command) {
         case 0x90: // Note On
             if (velocity > 0) {
-                console.log('Note on: ' + note);
+                //console.log('Note on: ' + note);
                 activeNotes.add(note);
             } else {
                 activeNotes.delete(note); // Note Off with velocity 0
