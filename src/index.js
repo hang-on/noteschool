@@ -53,8 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
             updateFocusNote();
             readyForInput = false;
             if (isFocusNoteOutOfBounds()){
-                initializeStaff();
                 correctSound.play(); // Play the sound
+                initializeStaff();
 
             }
 
