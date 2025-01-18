@@ -1,5 +1,5 @@
 /* Import base styles */
-@import "base/_general.css";
+@import "base/general.css";
 
 /* Import component styles */
 @import "components/_header.css";
