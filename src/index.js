@@ -50,6 +50,17 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (readyForInput === true && activeNotes.has(focusNote)) {
             setFocusNoteColor(cambridgeBlue);
+
+            // Display the note name below the note
+            const noteNameElement = document.createElement('div');
+            noteNameElement.textContent = focusNote;
+            noteNameElement.style.position = 'absolute';
+            noteNameElement.style.top = `${focusNoteElement.offsetTop + 20}px`; // Adjust as needed
+            noteNameElement.style.left = `${focusNoteElement.offsetLeft}px`; // Adjust as needed
+            noteNameElement.style.color = cambridgeBlue;
+            noteNameElement.classList.add('note-name');
+            focusNoteElement.parentElement.appendChild(noteNameElement); // Append to the parent element of the focus note
+
             updateFocusNote();
             readyForInput = false;
             if (isFocusNoteOutOfBounds()){

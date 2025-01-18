@@ -77,6 +77,12 @@
     /* Add necessary styles for notes */
 }
 
+/* Style for note name */
+.note-name {
+    font-size: 1em;
+    text-align: center;
+}
+
 .strike-through-note::before {
     content: '';
     position: absolute;
