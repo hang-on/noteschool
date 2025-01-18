@@ -51,64 +51,74 @@ export function getActiveNotes() {
     return activeNotes;
 }
 
-// Function to initialize MIDI access
+/**
+ * Initializes MIDI access and sets up event listeners for MIDI messages.
+ */
 export function initializeMIDI() {
-    WebMidi.enable(function (err) {
-        if (err) {
-            alert('WebMIDI is not supported in this browser.');
-            return;
-        }
-
-        const inputs = WebMidi.inputs;
-        let inputCount = 0;
-        for (const input of inputs) {
-            input.addListener('midimessage', 'all', (event) => {
-                const [command] = event.data;
-                if (command === NOTE_ON || command === NOTE_OFF) {
-                    onMIDIMessage(event);
-                }
-            });
-            console.log(`MIDI input added: ${input.name}`);
-            inputCount++;
-        }
-
-        if (inputCount === 0) {
-            console.log('No MIDI inputs detected.');
-        } else {
-            console.log(`Total MIDI inputs detected: ${inputCount}`);
-        }
-        console.log('MIDI access granted');
-    }, true); // Enable sysex
+    if (navigator.requestMIDIAccess) {
+        navigator.requestMIDIAccess({ sysex: false }).then(onMIDISuccess, onMIDIFailure);
+    } else {
+        alert('WebMIDI is not supported in this browser.');
+    }
 }
 
-// Function to handle incoming MIDI messages
-export function onMIDIMessage(event) {
-    // MIDI message structure: [command, midiNote, velocity]
+/**
+ * Handles successful MIDI access.
+ *
+ * @param {MIDIAccess} midiAccess - The MIDI access object.
+ */
+function onMIDISuccess(midiAccess) {
+    const inputs = midiAccess.inputs.values();
+    let inputCount = 0;
+
+    for (const input of inputs) {
+        input.onmidimessage = onMIDIMessage;
+        console.log(`MIDI input added: ${input.name}`);
+        inputCount++;
+    }
+
+    if (inputCount === 0) {
+        console.log('No MIDI inputs detected.');
+    } else {
+        console.log(`Total MIDI inputs detected: ${inputCount}`);
+    }
+    console.log('MIDI access granted');
+}
+
+/**
+ * Handles MIDI access failure.
+ *
+ * @param {Error} error - The error object.
+ */
+function onMIDIFailure(error) {
+    console.error('Failed to access MIDI devices:', error);
+}
+
+/**
+ * Handles incoming MIDI messages.
+ *
+ * @param {MIDIMessageEvent} event - The MIDI message event.
+ */
+function onMIDIMessage(event) {
     const [command, midiNote, velocity] = event.data;
-    // Scientific Pitch Notation (spr)
+
     const note = getScientificPitchNotation(midiNote);
 
-    if (note === undefined) {
-        if (isLoggingEnabled) console.log(`Note ${midiNote} is not mapped to any note.`);
-        return;
-    }
-
-    if (command === NOTE_ON && velocity > 0) { 
-        if (!activeNotes.has(note)) {
-            activeNotes.add(note);
-            if (isLoggingEnabled) console.log(`Note on: ${note} (velocity: ${velocity})`);
-        }
-    } else if (command === NOTE_OFF || (command === NOTE_ON && velocity === 0)) {
-        if (activeNotes.has(note)) {
+    switch (command) {
+        case 0x90: // Note On
+            if (velocity > 0) {
+                console.log('Note on: ' + note);
+                activeNotes.add(note);
+            } else {
+                activeNotes.delete(note); // Note Off with velocity 0
+            }
+            break;
+        case 0x80: // Note Off
             activeNotes.delete(note);
-            if (isLoggingEnabled) console.log(`Note off: ${note}`);
-        }
-    }
-
-    if (isLoggingEnabled) {
-        console.log(`MIDI message received: ${event.data}`);
-        console.log(`Command: ${command}, Note: ${midiNote}, Velocity: ${velocity}`);
-        console.log(`Played Note: ${note}`);
-        console.log(`Active Notes: ${Array.from(activeNotes).join(', ')}`);
+            break;
+        default:
+            break;
     }
 }
+
+export { onMIDIMessage };
