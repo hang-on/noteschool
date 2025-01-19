@@ -1,28 +1,22 @@
-import { addNoteAtPosition, generateRandomNote, setFocusNoteColor, getFocusNote, initializeStaff, updateFocusNote, isFocusNoteOutOfBounds } from './notes.js';
-import { onMIDIMessage, initializeMIDI, getActiveNotes } from './utils/index.js';
+import { setFocusNoteColor, getFocusNote, initializeStaff, updateFocusNote, isFocusNoteOutOfBounds } from './notes.js';
+import { initializeMIDI, getActiveNotes } from './utils/index.js';
+import { initializeMessageLabel, clearMessageLabel } from './messageHandler.js';
 
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeMIDI();
 
-
-    // Preload the sound
-
     let readyForInput = false; 
-
-    // Get the message label element
-    const messageLabel = document.getElementById('message-label');
-    messageLabel.textContent = 'Click anywhere to start a new session.';
-    messageLabel.style.textAlign = 'center';
-    messageLabel.style.marginBottom = '10px';
 
     const succesSound = new Audio('./sfx/success.mp3');
 
-    // Function to enable sound playback after user interaction
+    // Initialize the message label
+    initializeMessageLabel("Welcome to Noteschool. Click anywhere to start the session.");
+
+
     const startNewSession = () => {
         initializeStaff();     
-        
-            
+    
         // Create an AudioContext
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const track = audioContext.createMediaElementSource(succesSound);
@@ -34,13 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Connect the track to the gain node and the gain node to the audio context's destination
         track.connect(gainNode).connect(audioContext.destination);
     
-            
-        
         succesSound.play().then(() => {
             succesSound.pause();
             succesSound.currentTime = 0;
             document.removeEventListener('click', startNewSession);
-            messageLabel.textContent = ''; // Clear the welcome message
+            clearMessageLabel(); // Clear the welcome message
         }).catch((error) => {
             console.error('Error enabling sound playback:', error);
         });
