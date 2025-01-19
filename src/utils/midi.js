@@ -3,7 +3,7 @@ const NOTE_ON = 144;
 const NOTE_OFF = 128;
 
 // Set to keep track of active notes
-let activeNotes = new Set();
+const activeNotes = new Set();
 
 // Global variable to control logging
 const isLoggingEnabled = false;
@@ -20,6 +20,12 @@ const scientificPitchNotationToMIDI = {
     'c8': 108
 };
 
+// Precompute the reverse mapping from MIDI values to scientific pitch notation
+const MIDIToScientificPitchNotation = {};
+for (let note in scientificPitchNotationToMIDI) {
+    MIDIToScientificPitchNotation[scientificPitchNotationToMIDI[note]] = note;
+}
+
 /**
  * Converts a scientific pitch notation note to its corresponding MIDI value.
  * @param {string} note - The scientific pitch notation note (e.g., 'c4').
@@ -35,10 +41,6 @@ export function getMIDINoteValue(note) {
  * @returns {string} The corresponding scientific pitch notation, or undefined if the value is not found.
  */
 export function getScientificPitchNotation(midiValue) {
-    const MIDIToScientificPitchNotation = {};
-    for (let note in scientificPitchNotationToMIDI) {
-        MIDIToScientificPitchNotation[scientificPitchNotationToMIDI[note]] = note;
-    }
     return MIDIToScientificPitchNotation[midiValue];
 }
 
@@ -99,7 +101,7 @@ function onMIDIFailure(error) {
  *
  * @param {MIDIMessageEvent} event - The MIDI message event.
  */
-function onMIDIMessage(event) {
+export function onMIDIMessage(event) {
     const [command, midiNote, velocity] = event.data;
 
     const note = getScientificPitchNotation(midiNote);
@@ -120,5 +122,3 @@ function onMIDIMessage(event) {
             break;
     }
 }
-
-export { onMIDIMessage };
