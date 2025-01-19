@@ -21,6 +21,17 @@
         <section class="notes-section">
             <div class="notes-header">
                 <h2 class="subtitle">Notes:</h2>
+                <button id="testSoundButton">Test Sound</button>
+                <audio id="soundEffect" src="sfx/success.mp3" preload="auto"></audio>
+                <script>
+                    const button = document.getElementById('testSoundButton');
+                    const sound = document.getElementById('soundEffect');
+
+                    button.addEventListener('click', () => {
+                        sound.currentTime = 0;
+                        sound.play();
+                    });
+                </script>
             </div>
         </section>
 
