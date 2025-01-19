@@ -56,7 +56,7 @@ export function initializeStaff(){
  * @param {string} noteName - The name of the note (e.g., 'c4').
  * @returns {HTMLElement} The created note element.
  */
-function addNoteAtPosition(container, x, y, strikeThrough = false, noteName) {
+export function addNoteAtPosition(container, x, y, strikeThrough = false, noteName) {
     const note = document.createElement('div');
     note.classList.add('note');
     if (strikeThrough) {
@@ -74,7 +74,7 @@ function addNoteAtPosition(container, x, y, strikeThrough = false, noteName) {
  * Generates a random note from the global note pool.
  * @returns {Object} The generated note data.
  */
-function generateRandomNote() {
+export function generateRandomNote() {
     const randomNote = notePool[Math.floor(Math.random() * notePool.length)];
     return fClefNotes.find(note => note.name === randomNote);
 }
@@ -89,5 +89,19 @@ export function setFocusNoteColor(color) {
     notesOnStaff[focusNoteIndex].style.backgroundColor = color;
 }
 
-
-export { addNoteAtPosition, generateRandomNote };
+/**
+ * Displays the note name below the note.
+ * @param {HTMLElement} focusNoteElement - The element representing the focus note.
+ * @param {string} noteName - The name of the note to display.
+ * @param {string} color - The color to use for the note name.
+ */
+export function displayNoteName(focusNoteElement, noteName, color) {
+    const noteNameElement = document.createElement('div');
+    noteNameElement.textContent = noteName;
+    noteNameElement.style.position = 'absolute';
+    noteNameElement.style.top = `${focusNoteElement.offsetTop + 20}px`;
+    noteNameElement.style.left = `${focusNoteElement.offsetLeft}px`;
+    noteNameElement.style.color = color;
+    noteNameElement.classList.add('note-name');
+    focusNoteElement.parentElement.appendChild(noteNameElement); // Append to the parent element of the focus note
+}

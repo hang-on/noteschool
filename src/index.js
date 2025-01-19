@@ -1,4 +1,4 @@
-import { setFocusNoteColor, getFocusNote, initializeStaff, updateFocusNote, isFocusNoteOutOfBounds } from './notes.js';
+import { setFocusNoteColor, getFocusNote, initializeStaff, updateFocusNote, isFocusNoteOutOfBounds, displayNoteName } from './notes.js';
 import { initializeMIDI, getActiveNotes } from './utils/index.js';
 import { initializeMessageLabel, clearMessageLabel } from './messageHandler.js';
 
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
      * Initializes a new session. It is called the first time the user clicks or taps somewhere.
      * 
      * This function performs the following steps:
-     * 1. Calls `initializeStaff()` to initialize the staff.
+     * 1. Calls `initializeStaff()` to initialize the staff, and sets up the update loop.
      * 2. Creates an `AudioContext` to manage and play audio.
      * 3. Creates a `GainNode` to control the volume of the audio.
      * 4. Connects the audio track to the gain node and the gain node to the audio context's destination.
@@ -33,7 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     const startNewSession = () => {
         initializeStaff();     
-    
+
+        // Set up an interval to run the update function
+       setInterval(update, 1000 / 30);
+ 
         // Create an AudioContext
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const track = audioContext.createMediaElementSource(succesSound);
@@ -77,21 +80,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (focusNoteElement) {
             var focusNote = focusNoteElement.getAttribute('data-note-name'); // Get the note name from the data attribute
         } else {
-            //console.log("Problem accessing getFocusNote...");
+            console.log("Problem accessing getFocusNote...");
         }
               
         if (readyForInput === true && activeNotes.has(focusNote)) {
             setFocusNoteColor(cambridgeBlue);
 
             // Display the note name below the note
-            const noteNameElement = document.createElement('div');
-            noteNameElement.textContent = focusNote;
-            noteNameElement.style.position = 'absolute';
-            noteNameElement.style.top = `${focusNoteElement.offsetTop + 20}px`;
-            noteNameElement.style.left = `${focusNoteElement.offsetLeft}px`;
-            noteNameElement.style.color = cambridgeBlue;
-            noteNameElement.classList.add('note-name');
-            focusNoteElement.parentElement.appendChild(noteNameElement); // Append to the parent element of the focus note
+            displayNoteName(focusNoteElement, focusNote, cambridgeBlue);
 
             updateFocusNote();
             readyForInput = false;
@@ -106,7 +102,5 @@ document.addEventListener('DOMContentLoaded', () => {
         }  
     };
 
-    // Set up an interval to run the update function
-    setInterval(update, 1000 / 30);
 });
 
