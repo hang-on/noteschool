@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
      * Initializes a new session. It is called the first time the user clicks or taps somewhere.
      * 
      * This function performs the following steps:
-     * 1. Calls `initializeStaff()` to initialize the staff, and sets up the update loop.
+     * 1. Calls `initializeStaff()` to initialize the staff (including the focus note), 
+     *    and sets up the update loop.
      * 2. Creates an `AudioContext` to manage and play audio.
      * 3. Creates a `GainNode` to control the volume of the audio.
      * 4. Connects the audio track to the gain node and the gain node to the audio context's destination.
@@ -64,14 +65,16 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      * Updates the state of the application based on the active notes and the focused note.
      * 
-     * - Retrieves the active notes from the MIDI library.
-     * - Gets the currently focused note element.
-     * - If a focused note is found and ready for input:
-     *   - Sets the focus note color.
-     *   - Displays the note name below the note.
-     *   - Updates the focus note.
-     *   - Checks if the focus note is out of bounds and plays a success sound if it is.
-     *   - Initializes the staff.
+     * - Retrieves the active notes (currently pressed keys on the piano) from the MIDI library.
+     * - Gets the current focusnote (= the leftmost black note on the staff).
+     * - If we are ready for input (all keys on the piano was released before new note input), and one of the 
+     *   activeNotes (currently pressed keys) matches the focus note then:
+     *   - Set the focus note color to mark it as correctly played.
+     *   - Display the note name below the note.
+     *   - Update the focus note --> next note to the right.
+     *   - Check if the focus note is out of bounds (we have played all notes on the staff)
+     *     and plays a success sound if it is.
+     *   - Initialize the staff (including resetting the focus note to the first note on the staff).
      * - Resets the readyForInput flag if there are no active notes.
      */
     const update = () => {
