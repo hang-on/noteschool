@@ -38,25 +38,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Set up an interval to run the update function
        setInterval(update, 1000 / 30);
  
-        // Create an AudioContext
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const track = audioContext.createMediaElementSource(succesSound);
-    
-        // Create a GainNode to control the volume
-        const gainNode = audioContext.createGain();
-        gainNode.gain.value = 2; // Amplify the sound (2x volume)
-    
-        // Connect the track to the gain node and the gain node to the audio context's destination
-        track.connect(gainNode).connect(audioContext.destination);
-    
-        succesSound.play().then(() => {
-            succesSound.pause();
-            succesSound.currentTime = 0;
-            document.removeEventListener('click', startNewSession);
-            clearMessageLabel(); // Clear the welcome message
-        }).catch((error) => {
-            console.error('Error enabling sound playback:', error);
-        });
+        document.removeEventListener('click', startNewSession);
+        clearMessageLabel(); // Clear the welcome message
+
+        const sound = document.getElementById('soundEffect');
+        sound.pause(); // Play the sound
+        sound.currentTime = 0;
+        
+
     };
 
     // Add event listener for user interaction to start a new session.
@@ -95,7 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
             updateFocusNote();
             readyForInput = false;
             if (isFocusNoteOutOfBounds()){
-                succesSound.play(); // Play the sound
+                const sound = document.getElementById('soundEffect');
+                sound.currentTime = 0;
+                sound.play(); // Play the sound
                 initializeStaff();
             }
         }
