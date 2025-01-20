@@ -5,6 +5,8 @@ const NOTE_OFF = 128;
 // Set to keep track of active notes
 const activeNotes = new Set();
 
+var midiDevice = "";
+
 // Global variable to control logging
 const isLoggingEnabled = false;
 
@@ -64,25 +66,24 @@ export function initializeMIDI() {
     }
 }
 
+export function clearMidiBuffer() {
+    activeNotes.clear();
+}
+
 /**
  * Handles successful MIDI access.
  *
  * @param {MIDIAccess} midiAccess - The MIDI access object.
  */
 function onMIDISuccess(midiAccess) {
-    const inputs = midiAccess.inputs.values();
-    let inputCount = 0;
-
-    for (const input of inputs) {
-        input.onmidimessage = onMIDIMessage;
-        console.log(`MIDI input added: ${input.name}`);
-        inputCount++;
-    }
-
-    if (inputCount === 0) {
-        alert('No MIDI inputs detected.');
+    const inputs = Array.from(midiAccess.inputs.values());
+    if (inputs.length > 0) {
+        const midiDevice = inputs[0];
+        midiDevice.onmidimessage = onMIDIMessage;
+        console.log(`MIDI input added: ${midiDevice.name}`);
+        
     } else {
-        console.log(`Total MIDI inputs detected: ${inputCount}`);
+        console.log('No MIDI inputs detected.');
     }
     console.log('MIDI access granted');
 }

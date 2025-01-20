@@ -1,5 +1,5 @@
 import { setFocusNoteColor, getFocusNote, initializeStaff, updateFocusNote, isFocusNoteOutOfBounds, displayNoteName } from './notes.js';
-import { initializeMIDI, getActiveNotes } from './utils/index.js';
+import { initializeMIDI, getActiveNotes, clearMidiBuffer } from './utils/index.js';
 import { initializeMessageLabel, clearMessageLabel } from './messageHandler.js';
 
 
@@ -12,8 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeMIDI();
 
     initializeMessageLabel("Welcome to Noteschool. Click anywhere to start the session.");
-
-    const succesSound = new Audio('./sfx/success.mp3');
 
     /**
      * Initializes a new session. It is called the first time the user clicks or taps somewhere.
@@ -87,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const sound = document.getElementById('soundEffect');
                 sound.currentTime = 0;
                 sound.play(); // Play the sound
+                clearMidiBuffer();
                 initializeStaff();
             }
         }
