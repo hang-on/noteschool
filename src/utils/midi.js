@@ -68,6 +68,7 @@ export function initializeMIDI() {
 
 export function clearMidiBuffer() {
     activeNotes.clear();
+    
 }
 
 /**
@@ -80,7 +81,10 @@ function onMIDISuccess(midiAccess) {
     if (inputs.length > 0) {
         const midiDevice = inputs[0];
         midiDevice.onmidimessage = onMIDIMessage;
-        console.log(`MIDI input added: ${midiDevice.name}`);
+        midiDevice.onstatechange = (event) => {
+            // Print information about the (dis)connected MIDI controller
+            console.log(event.port.name, event.port.manufacturer, event.port.state);
+          };
         
     } else {
         console.log('No MIDI inputs detected.');
