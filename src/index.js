@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearMidiBuffer();
                 closeMIDIConnection();
                 initializeStaff();
-                initializeMIDI();
+                initializeMIDI();   
             }
         }
 
