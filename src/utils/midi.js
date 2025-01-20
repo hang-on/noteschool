@@ -74,12 +74,18 @@ export function clearMidiBuffer() {
 /**
  * Closes the MIDI connection.
  */
-export function closeMIDIConnection(midiAccess) {
-    const inputs = Array.from(midiAccess.inputs.values());
-    inputs.forEach(input => {
-        input.onmidimessage = null;
-        input.close();
-    });
+export function closeMIDIConnection() {
+    if (navigator.requestMIDIAccess) {
+        navigator.requestMIDIAccess({ sysex: false }).then(midiAccess => {
+            const inputs = Array.from(midiAccess.inputs.values());
+            inputs.forEach(input => {
+                input.onmidimessage = null;
+                input.close();
+            });
+        }, onMIDIFailure);
+    } else {
+        alert('WebMIDI is not supported in this browser.');
+    }
 }
 
 /**
