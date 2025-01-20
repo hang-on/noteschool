@@ -1,6 +1,7 @@
 import { setFocusNoteColor, getFocusNote, initializeStaff, updateFocusNote, isFocusNoteOutOfBounds, displayNoteName } from './notes.js';
 import { initializeMIDI, getActiveNotes, clearMidiBuffer } from './utils/index.js';
 import { initializeMessageLabel, clearMessageLabel } from './messageHandler.js';
+import { closeMIDIConnection } from './utils/midi.js';
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -86,7 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 sound.currentTime = 0;
                 sound.play(); // Play the sound
                 clearMidiBuffer();
+                closeMIDIConnection();
                 initializeStaff();
+                initializeMIDI();
             }
         }
 

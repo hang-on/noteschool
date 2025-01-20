@@ -68,7 +68,18 @@ export function initializeMIDI() {
 
 export function clearMidiBuffer() {
     activeNotes.clear();
-    
+
+}
+
+/**
+ * Closes the MIDI connection.
+ */
+export function closeMIDIConnection(midiAccess) {
+    const inputs = Array.from(midiAccess.inputs.values());
+    inputs.forEach(input => {
+        input.onmidimessage = null;
+        input.close();
+    });
 }
 
 /**
