@@ -2,13 +2,28 @@ import fClefNotes from "./data/fClefNotes.js";
 import { getActiveNotes, clearMidiBuffer } from "./utils/midi.js";
 
 // The pool from which to generate random notes
-const notePool = ['a2','b2', 'c3', 'd3', 'e3', 'f3', 'g3', 'b3', 'a3'];
+var notePool = [];
 
 // Array to keep track of active notes on the staff
 const notesOnStaff = [];
+
 // Index for notesOnStaff. Used for testing, changing etc.
 let focusNoteIndex = 0;
 let numberOfNotes = 16;
+
+
+// Two different data sets for the note pool
+const notePool1 = ['c3', 'd3', 'e3', 'f3', 'g3', 'b3', 'a3', 'b3', 'c4'];
+const notePool2 = ['e2', 'f2', 'g2', 'a2', 'b2', 'c3', 'd3', 'e3', 'f3'];
+
+/**
+ * Randomly selects one of the two data sets for the note pool.
+ * @returns {Array} The selected note pool.
+ */
+function selectRandomNotePool() {
+    const randomIndex = Math.floor(Math.random() * 2);
+    return randomIndex === 0 ? notePool1 : notePool2;
+}
 
 
 export function getFocusNote(){
@@ -28,6 +43,8 @@ export function isFocusNoteOutOfBounds(){
 }
 
 export function initializeStaff(){
+    notePool = selectRandomNotePool();
+
     // Clear existing notes
     notesOnStaff.length = 0;
 

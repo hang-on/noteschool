@@ -12,6 +12,4 @@ export default [
     { name: 'g2', y: 130, strikeThrough: false },
     { name: 'f2', y: 140, strikeThrough: false },
     { name: 'e2', y: 150, strikeThrough: true },
-    { name: 'd2', y: 160, strikeThrough: false },
-    { name: 'c2', y: 170, strikeThrough: true }
 ];
