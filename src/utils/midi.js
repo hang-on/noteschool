@@ -6,8 +6,6 @@ const ACTIVE_SENSING = 254; // Active Sensing message
 // Set to keep track of active notes
 const activeNotes = new Set();
 
-var midiDevice = "";
-
 const scientificPitchNotationToMIDI = {
     'c0': 12, 'c#0': 13, 'd0': 14, 'd#0': 15, 'e0': 16, 'f0': 17, 'f#0': 18, 'g0': 19, 'g#0': 20, 'a0': 21, 'a#0': 22, 'b0': 23,
     'c1': 24, 'c#1': 25, 'd1': 26, 'd#1': 27, 'e1': 28, 'f1': 29, 'f#1': 30, 'g1': 31, 'g#1': 32, 'a1': 33, 'a#1': 34, 'b1': 35,
@@ -26,36 +24,20 @@ for (let note in scientificPitchNotationToMIDI) {
     MIDIToScientificPitchNotation[scientificPitchNotationToMIDI[note]] = note;
 }
 
-/**
- * Converts a scientific pitch notation note to its corresponding MIDI value.
- * @param {string} note - The scientific pitch notation note (e.g., 'c4').
- * @returns {number} The corresponding MIDI value, or undefined if the note is not found.
- */
+// Converts a scientific pitch notation note to its corresponding MIDI value.
 export function getMIDINoteValue(note) {
     return scientificPitchNotationToMIDI[note.toLowerCase()];
 }
 
-/**
- * Converts a MIDI note value to its corresponding scientific pitch notation.
- * @param {number} midiValue - The MIDI note value (e.g., 60).
- * @returns {string} The corresponding scientific pitch notation, or undefined if the value is not found.
- */
+ // Converts a MIDI note value to its corresponding scientific pitch notation.
 export function getScientificPitchNotation(midiValue) {
     return MIDIToScientificPitchNotation[midiValue];
 }
 
-/**
- * Retrieves the currently active MIDI notes.
- *
- * @returns {Set} A set of active MIDI notes.
- */
 export function getActiveNotes() {
     return activeNotes;
 }
 
-/**
- * Initializes MIDI access and sets up event listeners for MIDI messages.
- */
 export function initializeMIDI() {
     if (navigator.requestMIDIAccess) {
         navigator.requestMIDIAccess({ sysex: false }).then(onMIDISuccess, onMIDIFailure);
@@ -64,33 +46,6 @@ export function initializeMIDI() {
     }
 }
 
-export function clearMidiBuffer() {
-    activeNotes.clear();
-
-}
-
-/**
- * Closes the MIDI connection.
- */
-export function closeMIDIConnection() {
-    if (navigator.requestMIDIAccess) {
-        navigator.requestMIDIAccess({ sysex: false }).then(midiAccess => {
-            const inputs = Array.from(midiAccess.inputs.values());
-            inputs.forEach(input => {
-                input.onmidimessage = null;
-                input.close();
-            });
-        }, onMIDIFailure);
-    } else {
-        alert('WebMIDI is not supported in this browser.');
-    }
-}
-
-/**
- * Handles successful MIDI access.
- *
- * @param {MIDIAccess} midiAccess - The MIDI access object.
- */
 function onMIDISuccess(midiAccess) {
     const inputs = Array.from(midiAccess.inputs.values());
     if (inputs.length > 0) {
@@ -107,11 +62,6 @@ function onMIDISuccess(midiAccess) {
     console.log('MIDI access granted');
 }
 
-/**
- * Handles MIDI access failure.
- *
- * @param {Error} error - The error object.
- */
 function onMIDIFailure(error) {
     console.error('Failed to access MIDI devices:', error);
 }
@@ -126,11 +76,6 @@ function printMIDIInfo(info) {
     }
 }
 
-/**
- * Handles incoming MIDI messages.
- *
- * @param {MIDIMessageEvent} event - The MIDI message event.
- */
 export function onMIDIMessage(event) {
     const [command, midiNote, velocity] = event.data;
 

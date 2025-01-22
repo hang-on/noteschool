@@ -1,5 +1,4 @@
 import fClefNotes from "./data/fClefNotes.js";
-import { getActiveNotes, clearMidiBuffer } from "./utils/midi.js";
 
 // The pool from which to generate random notes
 var notePool = [];
@@ -57,8 +56,6 @@ export function initializeStaff(){
 
     const staffWidth = notesContainer.clientWidth;
     const spacing = staffWidth / (numberOfNotes + 1);
-
-    clearMidiBuffer();
 
     for (let i = 0; i < numberOfNotes; i++) {
         const randomNoteData = generateRandomNote();

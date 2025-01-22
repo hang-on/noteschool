@@ -1,8 +1,6 @@
 import { setFocusNoteColor, getFocusNote, initializeStaff, updateFocusNote, isFocusNoteOutOfBounds, displayNoteName } from './notes.js';
-import { initializeMIDI, getActiveNotes, clearMidiBuffer } from './utils/index.js';
+import { initializeMIDI, getActiveNotes } from './utils/index.js';
 import { initializeMessageLabel, clearMessageLabel } from './messageHandler.js';
-import { closeMIDIConnection } from './utils/midi.js';
-
 
 document.addEventListener('DOMContentLoaded', () => {
     let readyForInput = false; 
@@ -47,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
             updateFocusNote();
             readyForInput = false;
             if (isFocusNoteOutOfBounds()){
-                clearMidiBuffer();
                 initializeStaff();
             }
         }
