@@ -1,14 +1,8 @@
-// Constants for MIDI message types
-const NOTE_ON = 144;
-const NOTE_OFF = 128;
 
 // Set to keep track of active notes
 const activeNotes = new Set();
 
 var midiDevice = "";
-
-// Global variable to control logging
-const isLoggingEnabled = false;
 
 const scientificPitchNotationToMIDI = {
     'c0': 12, 'c#0': 13, 'd0': 14, 'd#0': 15, 'e0': 16, 'f0': 17, 'f#0': 18, 'g0': 19, 'g#0': 20, 'a0': 21, 'a#0': 22, 'b0': 23,
@@ -118,6 +112,16 @@ function onMIDIFailure(error) {
     console.error('Failed to access MIDI devices:', error);
 }
 
+function printMIDIInfo(info) {
+    const midiInfoElement = document.getElementById('midi-info');
+    if (midiInfoElement) {
+        const infoElement = document.createElement('div');
+        infoElement.textContent = info;
+        midiInfoElement.appendChild(infoElement);
+        midiInfoElement.scrollTop = midiInfoElement.scrollHeight; // Scroll to the bottom
+    }
+}
+
 /**
  * Handles incoming MIDI messages.
  *
@@ -128,11 +132,15 @@ export function onMIDIMessage(event) {
 
     const note = getScientificPitchNotation(midiNote);
 
+    // Print MIDI message information to the MIDI info section
+    printMIDIInfo(`Command: ${command}, Note: ${note}, Velocity: ${velocity}`);
+
     switch (command) {
         case 0x90: // Note On
             if (velocity > 0) {
                 //console.log('Note on: ' + note);
                 activeNotes.add(note);
+
             } else {
                 activeNotes.delete(note); // Note Off with velocity 0
             }
