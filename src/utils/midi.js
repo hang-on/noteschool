@@ -1,3 +1,7 @@
+// Constants for MIDI message types
+const NOTE_ON = 144;
+const NOTE_OFF = 128;
+const ACTIVE_SENSING = 254; // Active Sensing message
 
 // Set to keep track of active notes
 const activeNotes = new Set();
@@ -130,22 +134,21 @@ function printMIDIInfo(info) {
 export function onMIDIMessage(event) {
     const [command, midiNote, velocity] = event.data;
 
+    // Ignore Active Sensing messages
+    if (command === ACTIVE_SENSING) {
+        return;
+    }
+
     const note = getScientificPitchNotation(midiNote);
 
     // Print MIDI message information to the MIDI info section
     printMIDIInfo(`Command: ${command}, Note: ${note}, Velocity: ${velocity}`);
 
     switch (command) {
-        case 0x90: // Note On
-            if (velocity > 0) {
-                //console.log('Note on: ' + note);
-                activeNotes.add(note);
-
-            } else {
-                activeNotes.delete(note); // Note Off with velocity 0
-            }
+        case NOTE_ON:
+            activeNotes.add(note);
             break;
-        case 0x80: // Note Off
+        case NOTE_OFF:
             activeNotes.delete(note);
             break;
         default:
