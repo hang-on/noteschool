@@ -1,14 +1,17 @@
 import { setFocusNoteColor, getFocusNote, initializeStaff, updateFocusNote, isFocusNoteOutOfBounds, displayNoteName } from './notes.js';
 import { initializeMIDI, getScientificPitchNotation, printMIDIInfo } from './utils/index.js';
 
-const NOTE_ON = 144;
-const NOTE_OFF = 128;
-const ACTIVE_SENSING = 254; // Active Sensing message
-let totalMIDIEvents = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
     let midiBuffer = [];
-    
+    let totalMIDIEvents = 0;
+
+    const NOTE_ON = 144;
+    const NOTE_OFF = 128;
+    const ACTIVE_SENSING = 254; // Active Sensing message
+        
+    const DEBOUNCE_DELAY = 50; // 50ms debounce delay
+
     initializeMIDI(handleMIDIEvent);
 
     initializeStaff();     
@@ -17,6 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const cambridgeBlue = getComputedStyle(document.documentElement).getPropertyValue('--cambridge-blue').trim();
 
     function processNote(midiNote){
+
+        // Ignore all commands except NOTE_ON
+        if ((command & 0xF0) !== NOTE_ON) {
+            return;
+        }
+
 
         //const note = getScientificPitchNotation(midiNote);
         const focusNoteElement = getFocusNote();
@@ -56,13 +65,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 250);
 
     function handleMIDIEvent (event){
-        //
-        const [command, midiNote, velocity] = event.data;    
-        if (command === NOTE_ON ) {
+        const currentTime = Date.now();
+        if (currentTime - lastProcessedTime > DEBOUNCE_DELAY) {
             midiBuffer.push(event.data);
+            //totalMIDIEvents++;
+            //printMIDIInfo(`Total MIDI events: ${totalMIDIEvents}`);
+            //printMIDIInfo(`Received MIDI data: ${event.data}`);
+            lastProcessedTime = currentTime;
         }    
-        
-        //totalMIDIEvents++;
     }
 });
 
