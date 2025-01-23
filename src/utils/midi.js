@@ -91,7 +91,12 @@ export function onMIDIMessage(event) {
 
     switch (command) {
         case NOTE_ON:
-            activeNotes.add(note);
+            if (velocity > 10) {
+                activeNotes.add(note);
+                printMIDIInfo(`Active Notes: ${Array.from(activeNotes).join(', ')}, size: ${activeNotes.size}`);
+            } else {
+                activeNotes.delete(note);
+            }
             break;
         case NOTE_OFF:
             activeNotes.delete(note);
