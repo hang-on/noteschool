@@ -1,10 +1,10 @@
 import { setFocusNoteColor, getFocusNote, initializeStaff, updateFocusNote, isFocusNoteOutOfBounds, displayNoteName } from './notes.js';
-import { initializeMIDI, getScientificPitchNotation } from './utils/index.js';
+import { initializeMIDI, getScientificPitchNotation, printMIDIInfo } from './utils/index.js';
 
 const NOTE_ON = 144;
 const NOTE_OFF = 128;
 const ACTIVE_SENSING = 254; // Active Sensing message
-
+let totalMIDIEvents = 0;
 
 document.addEventListener('DOMContentLoaded', () => {
     let midiBuffer = [];
@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // console.log(`Command: ${command}, Note: ${midiNote}, Velocity: ${velocity}`);
         const x = getScientificPitchNotation(midiNote);
         // console.log('Note played: ', x);
+        console.log('Total midi events: ', totalMIDIEvents);
+        printMIDIInfo(totalMIDIEvents);
 
         if (x == focusNote) {
             setFocusNoteColor(cambridgeBlue);
@@ -59,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleMIDIEvent (event){
         //
         midiBuffer.push(event.data);
+        totalMIDIEvents++;
     }
 });
 

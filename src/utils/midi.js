@@ -40,7 +40,7 @@ export function getActiveNotes() {
 
 export function initializeMIDI(onMIDIMessageHandler) {
     if (navigator.requestMIDIAccess) {
-        navigator.requestMIDIAccess({ sysex: false }).then(
+        navigator.requestMIDIAccess({ sysex: true }).then(
             (midiAccess) => onMIDISuccess(midiAccess, onMIDIMessageHandler),
             onMIDIFailure
         );
@@ -69,7 +69,7 @@ function onMIDIFailure(error) {
     console.error('Failed to access MIDI devices:', error);
 }
 
-function printMIDIInfo(info) {
+export function printMIDIInfo(info) {
     const midiInfoElement = document.getElementById('midi-info');
     if (midiInfoElement) {
         const infoElement = document.createElement('div');
