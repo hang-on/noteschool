@@ -38,19 +38,22 @@ export function getActiveNotes() {
     return activeNotes;
 }
 
-export function initializeMIDI() {
+export function initializeMIDI(onMIDIMessageHandler) {
     if (navigator.requestMIDIAccess) {
-        navigator.requestMIDIAccess({ sysex: false }).then(onMIDISuccess, onMIDIFailure);
+        navigator.requestMIDIAccess({ sysex: false }).then(
+            (midiAccess) => onMIDISuccess(midiAccess, onMIDIMessageHandler),
+            onMIDIFailure
+        );
     } else {
         alert('WebMIDI is not supported in this browser.');
     }
 }
 
-function onMIDISuccess(midiAccess) {
+function onMIDISuccess(midiAccess, onMIDIMessageHandler) {
     const inputs = Array.from(midiAccess.inputs.values());
     if (inputs.length > 0) {
-        const midiDevice = inputs[0];
-        midiDevice.onmidimessage = onMIDIMessage;
+        const midiDevice = inputs[0]; // Take the first MIDI input device.
+        midiDevice.onmidimessage = onMIDIMessageHandler;
         midiDevice.onstatechange = (event) => {
             // Print information about the (dis)connected MIDI controller
             console.log(event.port.name, event.port.manufacturer, event.port.state);
