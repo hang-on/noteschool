@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // console.log(`Command: ${command}, Note: ${midiNote}, Velocity: ${velocity}`);
         const x = getScientificPitchNotation(midiNote);
         // console.log('Note played: ', x);
-        console.log('Total midi events: ', totalMIDIEvents);
-        printMIDIInfo(totalMIDIEvents);
+        //console.log('Total midi events: ', totalMIDIEvents);
+        //printMIDIInfo(totalMIDIEvents);
 
         if (x == focusNote) {
             setFocusNoteColor(cambridgeBlue);
@@ -48,7 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(() => {
         while (midiBuffer.length) {
             const data = midiBuffer.shift();
-                processNote(midiNote);
+            const [command, midiNote, velocity] =   data;    
+            processNote(midiNote);
         }
         midiBuffer = [];
 
@@ -56,8 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleMIDIEvent (event){
         //
-        const [command, midiNote, velocity] = data;    
-        if ((command & 0xF0) === NOTE_ON ) {
+        const [command, midiNote, velocity] = event.data;    
+        if (command === NOTE_ON ) {
             midiBuffer.push(event.data);
         }    
         
