@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = midiBuffer.shift();
             processNotes(data);
         }
-    }, 100);
+    }, 250);
 
     function handleMIDIEvent (event){
         //
