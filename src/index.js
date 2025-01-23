@@ -1,6 +1,11 @@
 import { setFocusNoteColor, getFocusNote, initializeStaff, updateFocusNote, isFocusNoteOutOfBounds, displayNoteName } from './notes.js';
 import { initializeMIDI, getScientificPitchNotation } from './utils/index.js';
 
+const NOTE_ON = 144;
+const NOTE_OFF = 128;
+const ACTIVE_SENSING = 254; // Active Sensing message
+
+
 document.addEventListener('DOMContentLoaded', () => {
     let midiBuffer = [];
     
@@ -11,22 +16,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get the value of the --cambridge-blue CSS variable (used to mark correct input)
     const cambridgeBlue = getComputedStyle(document.documentElement).getPropertyValue('--cambridge-blue').trim();
 
-    function processNotes(data){
-        const [command, midiNote, velocity] = data;
-        // Constants for MIDI message types
-        const NOTE_ON = 144;
-        const NOTE_OFF = 128;
-        const ACTIVE_SENSING = 254; // Active Sensing message
-
-        // Ignore all commands except NOTE_ON
-        if ((command & 0xF0) !== NOTE_ON ) {
-            return;
-        }
+    function processNote(midiNote){
 
         //const note = getScientificPitchNotation(midiNote);
         const focusNoteElement = getFocusNote();
         var focusNote = focusNoteElement.getAttribute('data-note-name'); // Get the note name from the data attribute
-        // console.log('Focus Note: ', focusNote);
+        //console.log('Focus Note: ', focusNote);
+        //console.log(midiNote);
 
         // Print MIDI message information to the MIDI info section
         // console.log(`Command: ${command}, Note: ${midiNote}, Velocity: ${velocity}`);
@@ -50,8 +46,14 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(() => {
         while (midiBuffer.length) {
             const data = midiBuffer.shift();
-            processNotes(data);
+            const [command, midiNote, velocity] = data;    
+            // Ignore all commands except NOTE_ON
+            if ((command & 0xF0) === NOTE_ON ) {
+                processNote(midiNote);
+            }    
         }
+        midiBuffer = [];
+
     }, 250);
 
     function handleMIDIEvent (event){

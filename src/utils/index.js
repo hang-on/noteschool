@@ -1,1 +1,1 @@
-export { initializeMIDI, onMIDIMessage, getActiveNotes, getMIDINoteValue, getScientificPitchNotation } from './midi.js';
+export { initializeMIDI, getActiveNotes, getMIDINoteValue, getScientificPitchNotation } from './midi.js';

@@ -79,7 +79,7 @@ function printMIDIInfo(info) {
     }
 }
 
-export function onMIDIMessage(event) {
+/* export function onMIDIMessage(event) {
     const [command, midiNote, velocity] = event.data;
 
     // Ignore Active Sensing messages
@@ -108,3 +108,4 @@ export function onMIDIMessage(event) {
             break;
     }
 }
+ */
