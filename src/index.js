@@ -2,6 +2,7 @@ import { setFocusNoteColor, getFocusNote, initializeStaff, updateFocusNote, isFo
 import { initializeMIDI, getScientificPitchNotation } from './utils/index.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    let midiBuffer = [];
     
     initializeMIDI(handleMIDIEvent);
 
@@ -10,8 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get the value of the --cambridge-blue CSS variable (used to mark correct input)
     const cambridgeBlue = getComputedStyle(document.documentElement).getPropertyValue('--cambridge-blue').trim();
 
-    function handleMIDIEvent (event){
-        const [command, midiNote, velocity] = event.data;
+    function processNotes(data){
+        const [command, midiNote, velocity] = data;
         // Constants for MIDI message types
         const NOTE_ON = 144;
         const NOTE_OFF = 128;
@@ -44,6 +45,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 initializeStaff();
             }    
         }
+    }
+
+    setInterval(() => {
+        while (midiBuffer.length) {
+            const data = midiBuffer.shift();
+            processNotes(data);
+        }
+    }, 10);
+
+    function handleMIDIEvent (event){
+        //
+        midiBuffer.push(event.data);
     }
 });
 
