@@ -48,11 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(() => {
         while (midiBuffer.length) {
             const data = midiBuffer.shift();
-            const [command, midiNote, velocity] = data;    
-            // Ignore all commands except NOTE_ON
-            if ((command & 0xF0) === NOTE_ON ) {
                 processNote(midiNote);
-            }    
         }
         midiBuffer = [];
 
@@ -60,8 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleMIDIEvent (event){
         //
-        midiBuffer.push(event.data);
-        totalMIDIEvents++;
+        const [command, midiNote, velocity] = data;    
+        if ((command & 0xF0) === NOTE_ON ) {
+            midiBuffer.push(event.data);
+        }    
+        
+        //totalMIDIEvents++;
     }
 });
 
