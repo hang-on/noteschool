@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const ACTIVE_SENSING = 254; // Active Sensing message
 
         // Ignore all commands except NOTE_ON
-        if (command !== NOTE_ON) {
+        if ((command & 0xF0) !== NOTE_ON ) {
             return;
         }
 
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = midiBuffer.shift();
             processNotes(data);
         }
-    }, 10);
+    }, 100);
 
     function handleMIDIEvent (event){
         //
