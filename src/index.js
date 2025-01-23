@@ -1,6 +1,5 @@
 import { setFocusNoteColor, getFocusNote, initializeStaff, updateFocusNote, isFocusNoteOutOfBounds, displayNoteName } from './notes.js';
-import { initializeMIDI, getActiveNotes, getScientificPitchNotation } from './utils/index.js';
-import { initializeMessageLabel, clearMessageLabel } from './messageHandler.js';
+import { initializeMIDI, getScientificPitchNotation } from './utils/index.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -10,8 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Get the value of the --cambridge-blue CSS variable (used to mark correct input)
     const cambridgeBlue = getComputedStyle(document.documentElement).getPropertyValue('--cambridge-blue').trim();
-
-    initializeMessageLabel("Welcome to Noteschool. Click anywhere to start the session.");
 
     function handleMIDIEvent (event){
         const [command, midiNote, velocity] = event.data;
