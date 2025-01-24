@@ -5,7 +5,7 @@ import { initializeMIDI, getScientificPitchNotation, printMIDIInfo } from './uti
 document.addEventListener('DOMContentLoaded', () => {
     let midiBuffer = [];
     let totalMIDIEvents = 0;
-
+    let lastProcessedTime = 0;
     const NOTE_ON = 144;
     const NOTE_OFF = 128;
     const ACTIVE_SENSING = 254; // Active Sensing message
@@ -20,12 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const cambridgeBlue = getComputedStyle(document.documentElement).getPropertyValue('--cambridge-blue').trim();
 
     function processNote(midiNote){
-
-        // Ignore all commands except NOTE_ON
-        if ((command & 0xF0) !== NOTE_ON) {
-            return;
-        }
-
 
         //const note = getScientificPitchNotation(midiNote);
         const focusNoteElement = getFocusNote();
@@ -57,11 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(() => {
         while (midiBuffer.length) {
             const data = midiBuffer.shift();
-            const [command, midiNote, velocity] =   data;    
-            processNote(midiNote);
+            const [command, midiNote, velocity] = data;
+            // Ignore all commands except NOTE_ON
+            if ((command & 0xF0) === NOTE_ON) {
+                processNote(midiNote);    
+            }   
         }
         midiBuffer = [];
-
     }, 250);
 
     function handleMIDIEvent (event){
