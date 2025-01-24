@@ -56,7 +56,10 @@ function onMIDISuccess(midiAccess, onMIDIMessageHandler) {
         midiDevice.onmidimessage = onMIDIMessageHandler;
         midiDevice.onstatechange = (event) => {
             // Print information about the (dis)connected MIDI controller
-            console.log(event.port.name, event.port.manufacturer, event.port.state);
+            printMIDIInfo("Device in port 1:")
+            printMIDIInfo(event.port.name);
+            printMIDIInfo(event.port.manufacturer);
+            printMIDIInfo(event.port.state);
           };
         
     } else {
