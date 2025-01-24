@@ -51,9 +51,10 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(() => {
         while (midiBuffer.length) {
             const data = midiBuffer.shift();
+            printMIDIInfo(data);
             const [command, midiNote, velocity] = data;
             // Ignore all commands except NOTE_ON
-            if ((command & 0xF0) === NOTE_ON) {
+            if (command === NOTE_ON) {
                 processNote(midiNote);    
             }   
         }
@@ -61,14 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 250);
 
     function handleMIDIEvent (event){
-        const currentTime = Date.now();
-        if (currentTime - lastProcessedTime > DEBOUNCE_DELAY) {
-            midiBuffer.push(event.data);
-            //totalMIDIEvents++;
-            //printMIDIInfo(`Total MIDI events: ${totalMIDIEvents}`);
-            //printMIDIInfo(`Received MIDI data: ${event.data}`);
-            lastProcessedTime = currentTime;
+        midiBuffer.push(event.data);
         }    
-    }
 });
 
