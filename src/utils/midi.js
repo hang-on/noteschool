@@ -3,9 +3,6 @@ const NOTE_ON = 144;
 const NOTE_OFF = 128;
 const ACTIVE_SENSING = 254; // Active Sensing message
 
-// Set to keep track of active notes
-const activeNotes = new Set();
-
 const scientificPitchNotationToMIDI = {
     'c0': 12, 'c#0': 13, 'd0': 14, 'd#0': 15, 'e0': 16, 'f0': 17, 'f#0': 18, 'g0': 19, 'g#0': 20, 'a0': 21, 'a#0': 22, 'b0': 23,
     'c1': 24, 'c#1': 25, 'd1': 26, 'd#1': 27, 'e1': 28, 'f1': 29, 'f#1': 30, 'g1': 31, 'g#1': 32, 'a1': 33, 'a#1': 34, 'b1': 35,
