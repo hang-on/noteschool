@@ -6,6 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let midiBuffer = [];
     const NOTE_ON = 144;
 
+    document.getElementById('sound-toggle').addEventListener('change', function() {
+        const clickSound = document.getElementById('click-sound');
+        if (this.checked) {
+            clickSound.play();
+        }
+    });
+
     initializeMIDI(handleMIDIEvent);
 
     initializeStaff();     

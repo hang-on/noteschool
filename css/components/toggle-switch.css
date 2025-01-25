@@ -1,6 +1,19 @@
+/* Right-align class for labels */
+.right-align {
+    position: absolute;
+    right: 80px;
+    text-align: right;
+    display: block; /* Ensure the label takes up the full width */
+    width: 100%; /* Adjust as needed */
+}
+
 /* Toggle Switch */
 .switch {
-    position: relative;
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    margin-left: 10px; /* Adjust as needed */
+
     display: inline-block;
     width: 60px;
     height: 34px;

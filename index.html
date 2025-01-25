@@ -17,11 +17,11 @@
     <main class="main-content">
         <!-- Sound Toggle Switch -->
         <section class="sound-toggle-section">
+            <label for="sound-toggle" class="right-align">Sound: </label>
             <label class="switch">
                 <input type="checkbox" id="sound-toggle">
                 <span class="slider round"></span>
             </label>
-            <label for="sound-toggle">Sound</label>
         </section>
 
         <img src="images/f-clef.png" alt="F-clef" class="f-clef-image">
@@ -45,6 +45,8 @@
     </main>
 
     <audio id="success-sound" src="sfx/success.mp3" preload="auto"></audio>
+    <audio id="click-sound" src="sfx/click.mp3" preload="auto"></audio>
+    <audio id="tap-sound" src="sfx/tap.mp3" preload="auto"></audio>
     <script type="module" src="src/index.js"></script>
 </body>
 </html>
