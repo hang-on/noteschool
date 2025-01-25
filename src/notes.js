@@ -13,8 +13,8 @@ let focusNoteIndex = 0;
 let numberOfNotes = 16;
 
 // Two different data sets for the note pool
-const notePool1 = ['c3', 'd3', 'e3', 'f3', 'g3', 'b3', 'a3', 'b3', 'c4'];
-const notePool2 = ['e2', 'f2', 'g2', 'a2', 'b2', 'c3', 'd3', 'e3', 'f3'];
+const noteCollection1 = ['c3', 'd3', 'e3', 'f3', 'g3', 'b3', 'a3', 'b3', 'c4'];
+const noteCollection2 = ['e2', 'f2', 'g2', 'a2', 'b2', 'c3', 'd3', 'e3', 'f3'];
 
 // Get the value of the --cambridge-blue CSS variable (used to mark correct input)
 const correctNoteColor = getComputedStyle(document.documentElement).getPropertyValue('--cambridge-blue').trim();
@@ -44,7 +44,7 @@ export function processNote(midiNote){
 
 function selectRandomNotePool() {
     const randomIndex = Math.floor(Math.random() * 2);
-    return randomIndex === 0 ? notePool1 : notePool2;
+    return randomIndex === 0 ? noteCollection1 : noteCollection2;
 }
 
 export function getFocusNote(){
