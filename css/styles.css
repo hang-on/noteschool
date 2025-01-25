@@ -4,6 +4,7 @@
 @import "components/main-content.css";
 @import "components/midi-info.css";
 @import "components/toggle-switch.css";
+@import "components/cleared-pages-display.css";
 
 
 /* Import note and staff styles */
