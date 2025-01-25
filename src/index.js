@@ -14,10 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const cambridgeBlue = getComputedStyle(document.documentElement).getPropertyValue('--cambridge-blue').trim();
 
     function processNote(midiNote){
-
         const focusNoteElement = getFocusNote();
-        var focusNote = focusNoteElement.getAttribute('data-note-name'); // Get the note name from the data attribute
-
+        const focusNote = focusNoteElement.getAttribute('data-note-name'); // Get the note name from the data attribute
         const note = getScientificPitchNotation(midiNote);
 
         if (note == focusNote) {
