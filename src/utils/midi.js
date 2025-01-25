@@ -51,24 +51,21 @@ export function initializeMIDI(onMIDIMessageHandler) {
 
 function onMIDISuccess(midiAccess, onMIDIMessageHandler) {
     const inputs = Array.from(midiAccess.inputs.values());
-    if (inputs.length === 1) {
+    
+    if (inputs.length > 0) {
+        inputs.forEach((input, index) => {
+            input.onmidimessage = onMIDIMessageHandler;
+            printMIDIInfo(`Port ${index}: ${input.name}, Manufacturer: ${input.manufacturer}, State: ${input.state}, Connection: ${input.connection}`);
+        });
         const midiDevice = inputs[0]; // Take the first MIDI input device.
-        midiDevice.onmidimessage = onMIDIMessageHandler;
-        midiDevice.onstatechange = (event) => {
-            // Print information about the (dis)connected MIDI controller
-            printMIDIInfo("Port 0:")
-            printMIDIInfo('Name: ' + event.port.name);
-            printMIDIInfo('Manufacturer: ' + event.port.manufacturer);
-            printMIDIInfo('Port state: ' + event.port.state);
-            printMIDIInfo('Port ID: ' + event.port.id);
-            printMIDIInfo('Port type: ' + event.port.type);
-            printMIDIInfo('Port version ' + event.port.version);
-            printMIDIInfo('Connection: ' + event.port.connection);
-
-          };
-        
+        midiDevice.open().then(() => {
+            console.log ('Opened connection on port 0');
+            midiDevice.onmidimessage = onMIDIMessageHandler;
+        }).catch(error => {
+            console.error('Failed to open MIDI device:', error);
+        });
     } else {
-        console.log('Wrong number of MIDI inputs detected.');
+        printMIDIInfo('No MIDI inputs detected.');
     }
     console.log('MIDI access granted');
 }
