@@ -1,1 +1,0 @@
-export {default as notesData } from './notesData.js'
