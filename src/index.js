@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         // Clear midi buffer.
         midiBuffer = [];
-    }, 100);
+    }, 50);
 
     function handleMIDIEvent (event){
         // Every MIDI event is buffered.
