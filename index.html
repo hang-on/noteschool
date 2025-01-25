@@ -15,6 +15,15 @@
 
     <!-- Main Content Section -->
     <main class="main-content">
+        <!-- Sound Toggle Switch -->
+        <section class="sound-toggle-section">
+            <label class="switch">
+                <input type="checkbox" id="sound-toggle">
+                <span class="slider round"></span>
+            </label>
+            <label for="sound-toggle">Sound</label>
+        </section>
+
         <img src="images/f-clef.png" alt="F-clef" class="f-clef-image">
 
         <!-- Staff Section -->
@@ -33,8 +42,9 @@
             <h3>MIDI Information</h3>
             <div id="midi-info" class="midi-info"></div>
         </section>
-
     </main>
+
+    <audio id="success-sound" src="sfx/success.mp3" preload="auto"></audio>
     <script type="module" src="src/index.js"></script>
 </body>
 </html>

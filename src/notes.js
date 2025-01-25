@@ -38,6 +38,12 @@ export function processNote(midiNote){
 
         if (isFocusNoteOutOfBounds()){
             initializeStaff();
+            // Play the success sound if sound is enabled
+            const soundToggle = document.getElementById('sound-toggle');
+            if (soundToggle.checked) {
+                const successSound = document.getElementById('success-sound');
+                successSound.play();
+            }        
         }    
     }
 }
