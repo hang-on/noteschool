@@ -1,6 +1,38 @@
-import fClefNotes from "./data/fClefNotes.js";
-import gClefNotes from "./data/gClefNotes.js";
 import { getScientificPitchNotation } from './utils/index.js';
+
+const fClefNotes = [
+    { name: 'c4', y: 30, strikeThrough: true },
+    { name: 'b3', y: 40, strikeThrough: false },
+    { name: 'a3', y: 50, strikeThrough: false },
+    { name: 'g3', y: 60, strikeThrough: false },
+    { name: 'f3', y: 70, strikeThrough: false },
+    { name: 'e3', y: 80, strikeThrough: false },
+    { name: 'd3', y: 90, strikeThrough: false },
+    { name: 'c3', y: 100, strikeThrough: false },
+    { name: 'b2', y: 110, strikeThrough: false },
+    { name: 'a2', y: 120, strikeThrough: false },
+    { name: 'g2', y: 130, strikeThrough: false },
+    { name: 'f2', y: 140, strikeThrough: false },
+    { name: 'e2', y: 150, strikeThrough: true },
+];
+
+const gClefNotes = [
+    { name: 'a5', y: 30, strikeThrough: true },
+    { name: 'g5', y: 40, strikeThrough: false },
+    { name: 'f5', y: 50, strikeThrough: false },
+    { name: 'e5', y: 60, strikeThrough: false },
+    { name: 'd5', y: 70, strikeThrough: false },
+    { name: 'c5', y: 80, strikeThrough: false },
+    { name: 'b4', y: 90, strikeThrough: false },
+    { name: 'a4', y: 100, strikeThrough: false },
+    { name: 'g4', y: 110, strikeThrough: false },
+    { name: 'f4', y: 120, strikeThrough: false },
+    { name: 'e4', y: 130, strikeThrough: false },
+    { name: 'd4', y: 140, strikeThrough: false },
+    { name: 'c4', y: 150, strikeThrough: true },
+];
+
+
 
 const F_CLEF = 0;
 const G_CLEF = 255;
