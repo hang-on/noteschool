@@ -57,13 +57,6 @@ function onMIDISuccess(midiAccess, onMIDIMessageHandler) {
             input.onmidimessage = onMIDIMessageHandler;
             printMIDIInfo(`Port ${index}: ${input.name}, Manufacturer: ${input.manufacturer}, State: ${input.state}, Connection: ${input.connection}`);
         });
-        const midiDevice = inputs[0]; // Take the first MIDI input device.
-        midiDevice.open().then(() => {
-            console.log ('Opened connection on port 0');
-            midiDevice.onmidimessage = onMIDIMessageHandler;
-        }).catch(error => {
-            console.error('Failed to open MIDI device:', error);
-        });
     } else {
         printMIDIInfo('No MIDI inputs detected.');
     }
@@ -83,34 +76,3 @@ export function printMIDIInfo(info) {
         midiInfoElement.scrollTop = midiInfoElement.scrollHeight; // Scroll to the bottom
     }
 }
-
-/* export function onMIDIMessage(event) {
-    const [command, midiNote, velocity] = event.data;
-
-    // Ignore Active Sensing messages
-    if (command === ACTIVE_SENSING) {
-        return;
-    }
-
-    const note = getScientificPitchNotation(midiNote);
-
-    // Print MIDI message information to the MIDI info section
-    printMIDIInfo(`Command: ${command}, Note: ${note}, Velocity: ${velocity}`);
-
-    switch (command) {
-        case NOTE_ON:
-            if (velocity > 10) {
-                activeNotes.add(note);
-                printMIDIInfo(`Active Notes: ${Array.from(activeNotes).join(', ')}, size: ${activeNotes.size}`);
-            } else {
-                activeNotes.delete(note);
-            }
-            break;
-        case NOTE_OFF:
-            activeNotes.delete(note);
-            break;
-        default:
-            break;
-    }
-}
- */
