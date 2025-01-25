@@ -1,4 +1,4 @@
-export default [
+const gClefNotes = [
     { name: 'a5', y: 30, strikeThrough: true },
     { name: 'g5', y: 40, strikeThrough: false },
     { name: 'f5', y: 50, strikeThrough: false },
@@ -13,3 +13,5 @@ export default [
     { name: 'd4', y: 140, strikeThrough: false },
     { name: 'c4', y: 150, strikeThrough: true },
 ];
+
+export default gClefNotes;

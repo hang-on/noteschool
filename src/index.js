@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             clefImage.src = 'images/f-clef.png';
         }
+        initializeStaff();
     });
 
 

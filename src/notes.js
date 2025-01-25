@@ -1,4 +1,5 @@
 import fClefNotes from "./data/fClefNotes.js";
+import gClefNotes from "./data/gClefNotes.js";
 import { getScientificPitchNotation } from './utils/index.js';
 
 const F_CLEF = 0;
@@ -71,8 +72,14 @@ export function processNote(midiNote){
 }
 
 function selectRandomNotePool() {
-    const randomIndex = Math.floor(Math.random() * 2);
-    return randomIndex === 0 ? noteCollection1 : noteCollection2;
+    if (clefMode === F_CLEF){
+        const randomIndex = Math.floor(Math.random() * 2);
+        return randomIndex === 0 ? noteCollection1 : noteCollection2;
+    } else {
+        const randomIndex = Math.floor(Math.random() * 2);
+        return randomIndex === 0 ? noteCollection3 : noteCollection4;
+    }
+
 }
 
 export function getFocusNote(){
@@ -129,7 +136,11 @@ export function addNoteAtPosition(container, x, y, strikeThrough = false, noteNa
 
 export function generateRandomNote() {
     const randomNote = notePool[Math.floor(Math.random() * notePool.length)];
-    return fClefNotes.find(note => note.name === randomNote);
+    if (clefMode === F_CLEF){
+        return fClefNotes.find(note => note.name === randomNote);
+    } else {
+        return gClefNotes.find(note => note.name === randomNote);
+    }
 }
 
 export function setFocusNoteColor(color) {
