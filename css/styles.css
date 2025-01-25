@@ -1,25 +1,31 @@
-/* Import color variables */
-@import "base/colors.css";
-
-/* Import base styles */
-@import "base/general.css";
 
 /* Import component styles */
 @import "components/header.css";
 @import "components/main-content.css";
+@import "components/midi-info.css";
 
-/* Import music notation styles */
+/* Import note and staff styles */
 @import "notes/notes.css";
 
-/* MIDI Information Display */
-.midi-info-section {
-    margin-top: 20px;
+:root {
+    --rich-black: #031926;
+    --teal: #468189;
+    --cambridge-blue: #77aca2;
+    --ash-gray: #9dbebb;
+    --parchment: #f4e9cd;
 }
 
-.midi-info {
-    border: 1px solid #ccc;
-    padding: 10px;
-    height: 100px;
-    overflow-y: auto;
-    background-color: #f9f9f9;
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--rich-black);
+    color: var(--rich-black);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
+
