@@ -12,7 +12,6 @@ const notesOnStaff = [];
 let focusNoteIndex = 0;
 let numberOfNotes = 16;
 
-
 // Two different data sets for the note pool
 const notePool1 = ['c3', 'd3', 'e3', 'f3', 'g3', 'b3', 'a3', 'b3', 'c4'];
 const notePool2 = ['e2', 'f2', 'g2', 'a2', 'b2', 'c3', 'd3', 'e3', 'f3'];
@@ -39,16 +38,10 @@ export function processNote(midiNote){
     }
 }
 
-
-/**
- * Randomly selects one of the two data sets for the note pool.
- * @returns {Array} The selected note pool.
- */
 function selectRandomNotePool() {
     const randomIndex = Math.floor(Math.random() * 2);
     return randomIndex === 0 ? notePool1 : notePool2;
 }
-
 
 export function getFocusNote(){
     return notesOnStaff[focusNoteIndex];
@@ -88,15 +81,6 @@ export function initializeStaff(){
     }
 }
 
-/**
- * Adds a note at a specific position within the container.
- * @param {HTMLElement} container - The container to add the note to.
- * @param {number} x - The x-coordinate for the note.
- * @param {number} y - The y-coordinate for the note.
- * @param {boolean} strikeThrough - Whether the note has a strike-through line.
- * @param {string} noteName - The name of the note (e.g., 'c4').
- * @returns {HTMLElement} The created note element.
- */
 export function addNoteAtPosition(container, x, y, strikeThrough = false, noteName) {
     const note = document.createElement('div');
     note.classList.add('note');
@@ -111,31 +95,16 @@ export function addNoteAtPosition(container, x, y, strikeThrough = false, noteNa
     return note;
 }
 
-/**
- * Generates a random note from the global note pool.
- * @returns {Object} The generated note data.
- */
 export function generateRandomNote() {
     const randomNote = notePool[Math.floor(Math.random() * notePool.length)];
     return fClefNotes.find(note => note.name === randomNote);
 }
 
-/**
- * Sets the color of a note at a specific index on the staff.
- * @param {number} index - The index of the note to set the color for (0-7).
- * @param {string} color - The color to set.
- */
 export function setFocusNoteColor(color) {
     //console.log(`notesOnStaff length: ${notesOnStaff.length}`);
     notesOnStaff[focusNoteIndex].style.backgroundColor = color;
 }
 
-/**
- * Displays the note name below the note.
- * @param {HTMLElement} focusNoteElement - The element representing the focus note.
- * @param {string} noteName - The name of the note to display.
- * @param {string} color - The color to use for the note name.
- */
 export function displayNoteName(focusNoteElement, noteName, color) {
     const noteNameElement = document.createElement('div');
     noteNameElement.textContent = noteName;
