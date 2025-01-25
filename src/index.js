@@ -4,13 +4,7 @@ import { initializeMIDI, getScientificPitchNotation, printMIDIInfo } from './uti
 
 document.addEventListener('DOMContentLoaded', () => {
     let midiBuffer = [];
-    let totalMIDIEvents = 0;
-    let lastProcessedTime = 0;
     const NOTE_ON = 144;
-    const NOTE_OFF = 128;
-    const ACTIVE_SENSING = 254; // Active Sensing message
-        
-    const DEBOUNCE_DELAY = 50; // 50ms debounce delay
 
     initializeMIDI(handleMIDIEvent);
 
@@ -21,20 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function processNote(midiNote){
 
-        //const note = getScientificPitchNotation(midiNote);
         const focusNoteElement = getFocusNote();
         var focusNote = focusNoteElement.getAttribute('data-note-name'); // Get the note name from the data attribute
-        //console.log('Focus Note: ', focusNote);
-        //console.log(midiNote);
 
-        // Print MIDI message information to the MIDI info section
-        // console.log(`Command: ${command}, Note: ${midiNote}, Velocity: ${velocity}`);
-        const x = getScientificPitchNotation(midiNote);
-        // console.log('Note played: ', x);
-        //console.log('Total midi events: ', totalMIDIEvents);
-        //printMIDIInfo(totalMIDIEvents);
+        const note = getScientificPitchNotation(midiNote);
 
-        if (x == focusNote) {
+        if (note == focusNote) {
             setFocusNoteColor(cambridgeBlue);
 
             // Display the note name below the note
