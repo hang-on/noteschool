@@ -66,6 +66,28 @@ export function toggleClefMode(){
     }
 }
 
+export function initializeStaff(){
+    notePool = selectRandomNotePool();
+
+    // Clear existing notes
+    notesOnStaff.length = 0;
+
+    // Reset index
+    focusNoteIndex = 0;
+
+    // Generate random notes and place them evenly spaced on the staff
+    const notesContainer = document.querySelector('.notes-container');
+    notesContainer.innerHTML = ''; // Clear the container
+
+    const staffWidth = notesContainer.clientWidth;
+    const spacing = staffWidth / (numberOfNotes + 1);
+
+    for (let i = 0; i < numberOfNotes; i++) {
+        const randomNoteData = generateRandomNote();
+        const note = addNoteAtPosition(notesContainer, i * spacing + spacing, randomNoteData.y, randomNoteData.strikeThrough, randomNoteData.name);
+    }
+}
+
 export function processNote(midiNote){
     // Take a MIDI note value and convert it to scientific pitch notation. Compare it to the focus note. If they match
     // (the user played the right note), change the color of the focus note, display the note name. Let the next note
@@ -105,15 +127,15 @@ function selectRandomNotePool() {
 
 }
 
-export function getFocusNote(){
+function getFocusNote(){
     return notesOnStaff[focusNoteIndex];
 }
 
-export function updateFocusNote(){
+function updateFocusNote(){
     focusNoteIndex++;
 }
 
-export function isFocusNoteOutOfBounds(){
+function isFocusNoteOutOfBounds(){
     if (focusNoteIndex >= numberOfNotes) {
         return true
     } else {
@@ -121,29 +143,7 @@ export function isFocusNoteOutOfBounds(){
     }
 }
 
-export function initializeStaff(){
-    notePool = selectRandomNotePool();
-
-    // Clear existing notes
-    notesOnStaff.length = 0;
-
-    // Reset index
-    focusNoteIndex = 0;
-
-    // Generate random notes and place them evenly spaced on the staff
-    const notesContainer = document.querySelector('.notes-container');
-    notesContainer.innerHTML = ''; // Clear the container
-
-    const staffWidth = notesContainer.clientWidth;
-    const spacing = staffWidth / (numberOfNotes + 1);
-
-    for (let i = 0; i < numberOfNotes; i++) {
-        const randomNoteData = generateRandomNote();
-        const note = addNoteAtPosition(notesContainer, i * spacing + spacing, randomNoteData.y, randomNoteData.strikeThrough, randomNoteData.name);
-    }
-}
-
-export function addNoteAtPosition(container, x, y, strikeThrough = false, noteName) {
+function addNoteAtPosition(container, x, y, strikeThrough = false, noteName) {
     const note = document.createElement('div');
     note.classList.add('note');
     if (strikeThrough) {
@@ -157,7 +157,7 @@ export function addNoteAtPosition(container, x, y, strikeThrough = false, noteNa
     return note;
 }
 
-export function generateRandomNote() {
+function generateRandomNote() {
     const randomNote = notePool[Math.floor(Math.random() * notePool.length)];
     if (clefMode === F_CLEF){
         return fClefNotes.find(note => note.name === randomNote);
@@ -166,7 +166,7 @@ export function generateRandomNote() {
     }
 }
 
-export function setFocusNoteColor(color) {
+function setFocusNoteColor(color) {
     // Set the background color of the focus note
     notesOnStaff[focusNoteIndex].style.backgroundColor = color;
 
@@ -176,7 +176,7 @@ export function setFocusNoteColor(color) {
         notesOnStaff[focusNoteIndex].style.setProperty('--strike-through-color', color);
     }
 }
-export function displayNoteName(focusNoteElement, noteName, color) {
+function displayNoteName(focusNoteElement, noteName, color) {
     const noteNameElement = document.createElement('div');
     noteNameElement.textContent = noteName;
     noteNameElement.style.position = 'absolute';
