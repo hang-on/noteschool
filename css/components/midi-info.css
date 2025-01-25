@@ -2,12 +2,14 @@
 /* MIDI Information Display */
 .midi-info-section {
     margin-top: 20px;
+    color: var(--rich-black);
 }
 
 .midi-info {
     border: 1px solid #ccc;
+    color: var(--rich-black);
     padding: 10px;
-    height: 100px;
+    height: 40px;
     overflow-y: auto;
-    background-color: #f9f9f9;
+    background-color: var(--ash-gray);
 }
