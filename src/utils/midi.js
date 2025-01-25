@@ -31,10 +31,6 @@ export function getScientificPitchNotation(midiValue) {
     return MIDIToScientificPitchNotation[midiValue];
 }
 
-export function getActiveNotes() {
-    return activeNotes;
-}
-
 export function initializeMIDI(onMIDIMessageHandler) {
     if (navigator.requestMIDIAccess) {
         navigator.requestMIDIAccess({ sysex: true }).then(
