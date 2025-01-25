@@ -49,12 +49,8 @@ export function processNote(midiNote){
     const note = getScientificPitchNotation(midiNote);
 
     if (note == focusNote) {
-        const tapSound = document.getElementById('tap-sound');
-        tapSound.play();
-
         setFocusNoteColor(correctNoteColor);
 
-        // Display the note name below the note
         displayNoteName(focusNoteElement, focusNote, correctNoteColor);
 
         updateFocusNote();
