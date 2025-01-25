@@ -1,5 +1,5 @@
-import { setFocusNoteColor, getFocusNote, initializeStaff, updateFocusNote, isFocusNoteOutOfBounds, displayNoteName } from './notes.js';
-import { initializeMIDI, getScientificPitchNotation, printMIDIInfo } from './utils/index.js';
+import { initializeStaff, processNote } from './notes.js';
+import { initializeMIDI } from './utils/index.js';
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,29 +10,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initializeStaff();     
 
-    // Get the value of the --cambridge-blue CSS variable (used to mark correct input)
-    const cambridgeBlue = getComputedStyle(document.documentElement).getPropertyValue('--cambridge-blue').trim();
-
-    function processNote(midiNote){
-        const focusNoteElement = getFocusNote();
-        const focusNote = focusNoteElement.getAttribute('data-note-name'); // Get the note name from the data attribute
-        const note = getScientificPitchNotation(midiNote);
-
-        if (note == focusNote) {
-            setFocusNoteColor(cambridgeBlue);
-
-            // Display the note name below the note
-            displayNoteName(focusNoteElement, focusNote, cambridgeBlue);
-    
-            updateFocusNote();
-    
-            if (isFocusNoteOutOfBounds()){
-                initializeStaff();
-            }    
-        }
-    }
-
     setInterval(() => {
+        // At a set interval, process all NOTE_ON messages in the MIDI buffer,
+        // and clear the buffer afterwards.
         while (midiBuffer.length) {
             const data = midiBuffer.shift();
             const [command, midiNote] = data;
@@ -46,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 100);
 
     function handleMIDIEvent (event){
+        // Every MIDI event is buffered.
         midiBuffer.push(event.data);
         }    
 });
