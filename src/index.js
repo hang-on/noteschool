@@ -35,15 +35,15 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(() => {
         while (midiBuffer.length) {
             const data = midiBuffer.shift();
-            printMIDIInfo(data);
-            const [command, midiNote, velocity] = data;
+            const [command, midiNote] = data;
             // Ignore all commands except NOTE_ON
             if (command === NOTE_ON) {
                 processNote(midiNote);    
             }   
         }
+        // Clear midi buffer.
         midiBuffer = [];
-    }, 250);
+    }, 100);
 
     function handleMIDIEvent (event){
         midiBuffer.push(event.data);
