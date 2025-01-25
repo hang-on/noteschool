@@ -1,3 +1,20 @@
+/* Clef Image Container */
+.clef-image-container {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  width: 80px;
+  height: auto;
+  cursor: pointer; /* Indicate that the container is clickable */
+}
+
+.clef-image {
+  margin: 1px; /* Adjust as needed */
+  border: 2px solid var(--rich-black); /* Thin outline */
+  max-width: 100%; /* Adjust size as needed */
+  height: auto;
+}
+
 /* Notes Section Styles */
 .notes-section {
     margin-bottom: 20px;
@@ -8,15 +25,6 @@
     align-items: center;
 }
 
-.f-clef-image {
-    position: absolute;
-    top: 10px; /* Adjust as needed */
-    left: 10px; /* Adjust as needed */
-    margin-left: 10px; /* Adjust as needed */
-    border: 1px solid var(--rich-black); /* Thin outline */
-    width: 50px; /* Adjust size as needed */
-    height: auto;
-}
 
 /* Staff Section Styles */
 .staff-section {

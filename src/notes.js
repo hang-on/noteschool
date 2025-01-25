@@ -1,6 +1,13 @@
 import fClefNotes from "./data/fClefNotes.js";
+import gClefNotes from "./data/gClefNotes.js";
 import { getScientificPitchNotation } from './utils/index.js';
 
+const F_CLEF = 0;
+const G_CLEF = 255;
+
+
+// Global register that controls the clef mode (f-clef or g-clef)
+var clefMode = F_CLEF;
 
 // The pool from which to generate random notes
 var notePool = [];
@@ -12,12 +19,25 @@ const notesOnStaff = [];
 let focusNoteIndex = 0;
 let numberOfNotes = 16;
 
-// Two different data sets for the note pool
+// Two different data sets for the note pool in f-clef mode
 const noteCollection1 = ['c3', 'd3', 'e3', 'f3', 'g3', 'b3', 'a3', 'b3', 'c4'];
 const noteCollection2 = ['e2', 'f2', 'g2', 'a2', 'b2', 'c3', 'd3', 'e3', 'f3'];
 
+// Two different data sets for the note pool in g-clef mode
+const noteCollection3 = ['c4', 'e4', 'f4', 'g4', 'a4', 'b4', 'c5', 'd5', 'e5'];
+const noteCollection4 = ['g4', 'a4', 'b4', 'c5', 'd5', 'e5', 'f5', 'g5', 'a5'];
+
+
 // Get the value of the --cambridge-blue CSS variable (used to mark correct input)
 const correctNoteColor = getComputedStyle(document.documentElement).getPropertyValue('--cambridge-blue').trim();
+
+export function toggleClefMode(){
+    if (clefMode === F_CLEF){
+        clefMode = G_CLEF;
+    } else {
+        clefMode = F_CLEF;
+    }
+}
 
 export function processNote(midiNote){
     // Take a MIDI note value and convert it to scientific pitch notation. Compare it to the focus note. If they match
@@ -52,8 +72,14 @@ export function processNote(midiNote){
 }
 
 function selectRandomNotePool() {
-    const randomIndex = Math.floor(Math.random() * 2);
-    return randomIndex === 0 ? noteCollection1 : noteCollection2;
+    if (clefMode === F_CLEF){
+        const randomIndex = Math.floor(Math.random() * 2);
+        return randomIndex === 0 ? noteCollection1 : noteCollection2;
+    } else {
+        const randomIndex = Math.floor(Math.random() * 2);
+        return randomIndex === 0 ? noteCollection3 : noteCollection4;
+    }
+
 }
 
 export function getFocusNote(){
@@ -110,7 +136,11 @@ export function addNoteAtPosition(container, x, y, strikeThrough = false, noteNa
 
 export function generateRandomNote() {
     const randomNote = notePool[Math.floor(Math.random() * notePool.length)];
-    return fClefNotes.find(note => note.name === randomNote);
+    if (clefMode === F_CLEF){
+        return fClefNotes.find(note => note.name === randomNote);
+    } else {
+        return gClefNotes.find(note => note.name === randomNote);
+    }
 }
 
 export function setFocusNoteColor(color) {
