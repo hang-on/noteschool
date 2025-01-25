@@ -17,18 +17,22 @@ const notePool1 = ['c3', 'd3', 'e3', 'f3', 'g3', 'b3', 'a3', 'b3', 'c4'];
 const notePool2 = ['e2', 'f2', 'g2', 'a2', 'b2', 'c3', 'd3', 'e3', 'f3'];
 
 // Get the value of the --cambridge-blue CSS variable (used to mark correct input)
-const cambridgeBlue = getComputedStyle(document.documentElement).getPropertyValue('--cambridge-blue').trim();
+const correctNoteColor = getComputedStyle(document.documentElement).getPropertyValue('--cambridge-blue').trim();
 
 export function processNote(midiNote){
+    // Take a MIDI note value and convert it to scientific pitch notation. Compare it to the focus note. If they match
+    // (the user played the right note), change the color of the focus note, display the note name. Let the next note
+    // on the staff be the focus note, or re-initialize the staff with a new set of notes, if the current focus note
+    // was the last on the staff. 
     const focusNoteElement = getFocusNote();
     const focusNote = focusNoteElement.getAttribute('data-note-name'); // Get the note name from the data attribute
     const note = getScientificPitchNotation(midiNote);
 
     if (note == focusNote) {
-        setFocusNoteColor(cambridgeBlue);
+        setFocusNoteColor(correctNoteColor);
 
         // Display the note name below the note
-        displayNoteName(focusNoteElement, focusNote, cambridgeBlue);
+        displayNoteName(focusNoteElement, focusNote, correctNoteColor);
 
         updateFocusNote();
 
