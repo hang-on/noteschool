@@ -90,10 +90,10 @@
     left: -10px; /* Adjust to center the line */
     width: 40px; /* Length of the line */
     height: 1px;
-    background-color: var(--rich-black);
+    background-color: var(--strike-through-color);
     transform: translateY(-50%);
 }
 
 .strike-through-note {
-    /* Add necessary styles for strike-through notes */
+    --strike-through-color: var(--rich-black);
 }

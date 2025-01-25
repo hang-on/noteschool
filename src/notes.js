@@ -105,10 +105,15 @@ export function generateRandomNote() {
 }
 
 export function setFocusNoteColor(color) {
-    //console.log(`notesOnStaff length: ${notesOnStaff.length}`);
+    // Set the background color of the focus note
     notesOnStaff[focusNoteIndex].style.backgroundColor = color;
-}
 
+    // Check if the note has a strike-through line and set its color
+    const strikeThroughNote = notesOnStaff[focusNoteIndex].classList.contains('strike-through-note');
+    if (strikeThroughNote) {
+        notesOnStaff[focusNoteIndex].style.setProperty('--strike-through-color', color);
+    }
+}
 export function displayNoteName(focusNoteElement, noteName, color) {
     const noteNameElement = document.createElement('div');
     noteNameElement.textContent = noteName;
