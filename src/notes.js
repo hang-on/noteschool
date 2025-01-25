@@ -92,7 +92,8 @@ export function processNote(midiNote){
     // Take a MIDI note value and convert it to scientific pitch notation. Compare it to the focus note. If they match
     // (the user played the right note), change the color of the focus note, display the note name. Let the next note
     // on the staff be the focus note, or re-initialize the staff with a new set of notes, if the current focus note
-    // was the last on the staff. 
+    // was the last on the staff.
+    // Returns 0 if notes do not match, 1 if notes match, and 255 if page was cleared
     const focusNoteElement = getFocusNote();
     const focusNote = focusNoteElement.getAttribute('data-note-name'); // Get the note name from the data attribute
     const note = getScientificPitchNotation(midiNote);
@@ -111,8 +112,13 @@ export function processNote(midiNote){
             if (soundToggle.checked) {
                 const successSound = document.getElementById('success-sound');
                 successSound.play();
-            }        
-        }    
+            }
+            return 255;        
+        } else {
+            return 1;
+        }   
+    } else {
+        return 0;
     }
 }
 

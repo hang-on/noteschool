@@ -4,7 +4,9 @@ import { initializeMIDI } from './utils/index.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     let midiBuffer = [];
+    let clearedPages = 0;
     const NOTE_ON = 144;
+    const PAGE_CLEARED = 255;
 
     document.getElementById('sound-toggle').addEventListener('change', function() {
         const clickSound = document.getElementById('click-sound');
@@ -23,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         toggleClefMode();
         initializeStaff();
+        clearedPages = 0;
+        updateClearedPagesDisplay();
     });
 
 
@@ -38,7 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const [command, midiNote] = data;
             // Ignore all commands except NOTE_ON
             if (command === NOTE_ON) {
-                processNote(midiNote);    
+                let result = 0;
+                result = processNote(midiNote);
+                if (result === PAGE_CLEARED) {
+                    clearedPages++;
+                    updateClearedPagesDisplay();
+                }    
             }   
         }
         // Clear midi buffer.
@@ -48,6 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function handleMIDIEvent (event){
         // Every MIDI event is buffered.
         midiBuffer.push(event.data);
-        }    
+    }    
+    // Update the clearedPages variable and display its value
+    function updateClearedPagesDisplay() {
+        const clearedPagesDisplay = document.getElementById('cleared-pages-display');
+        clearedPagesDisplay.textContent = `Cleared Pages: ${clearedPages}`;
+    }
+
 });
 
