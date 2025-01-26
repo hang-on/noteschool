@@ -15,17 +15,6 @@
   height: auto;
 }
 
-/* Notes Section Styles */
-.notes-section {
-    margin-bottom: 20px;
-}
-
-.notes-header {
-    display: flex;
-    align-items: center;
-}
-
-
 /* Staff Section Styles */
 .staff-section {
     margin-bottom: 20px;
