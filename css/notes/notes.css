@@ -70,11 +70,8 @@
     height: 20px;
     background-color: var(--rich-black);
     border-radius: 50%;
-    pointer-events: auto; /* Allow interaction with the notes */
-    /* Add necessary styles for notes */
 }
 
-/* Style for note name */
 .note-name {
     font-size: 1em;
     text-align: center;
