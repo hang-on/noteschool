@@ -1,5 +1,8 @@
 .cleared-pages-display {
-    margin-left: 10px; /* Adjust as needed */
+    position: absolute;
+    width: 100px;
+    left: 80px;
+    top: 20 px;
     font-size: 16px; /* Adjust as needed */
     color: var(--rich-black); /* Adjust as needed */
 }
