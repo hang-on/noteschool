@@ -8,10 +8,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const NOTE_ON = 144;
     const PAGE_CLEARED = 255;
 
+    // Initialize Web Audio API
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const sounds = {};
+
+    // Function to load a sound
+    function loadSound(url, name) {
+        fetch(url)
+            .then(response => response.arrayBuffer())
+            .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+            .then(audioBuffer => {
+                sounds[name] = audioBuffer;
+            })
+            .catch(e => console.error('Error loading sound:', e));
+    }
+
+    // Load sounds
+    loadSound('sfx/success.mp3', 'success');
+    loadSound('sfx/click.mp3', 'click');
+
+    // Function to play a sound
+    function playSound(name) {
+        const sound = sounds[name];
+        if (sound) {
+            const source = audioContext.createBufferSource();
+            source.buffer = sound;
+            source.connect(audioContext.destination);
+            source.start(0);
+        }
+    }
+
+
     document.getElementById('sound-toggle').addEventListener('change', function() {
-        const clickSound = document.getElementById('click-sound');
         if (this.checked) {
-            clickSound.play();
+            playSound('click');
         }
     });
 
@@ -48,8 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Play the success sound if sound is enabled
                     const soundToggle = document.getElementById('sound-toggle');
                     if (soundToggle.checked) {
-                        const successSound = document.getElementById('success-sound');
-                        successSound.play();
+                        playSound('success');
                     }                    
                     clearedPages++;
                     updateClearedPagesDisplay();
