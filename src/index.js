@@ -45,6 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 let result = 0;
                 result = processNote(midiNote);
                 if (result === PAGE_CLEARED) {
+                    // Play the success sound if sound is enabled
+                    const soundToggle = document.getElementById('sound-toggle');
+                    if (soundToggle.checked) {
+                        const successSound = document.getElementById('success-sound');
+                        successSound.play();
+                    }                    
                     clearedPages++;
                     updateClearedPagesDisplay();
                 }    
