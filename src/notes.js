@@ -1,5 +1,5 @@
 import { getScientificPitchNotation } from './utils/index.js';
-import { DEBUG_MODE, FAKE_NOTE_CORRECT } from '../config.js';
+import { DEBUG_MODE, FAKE_NOTE_CORRECT } from './config.js';
 
 const fClefNotes = [
     { name: 'c4', y: 30, strikeThrough: true },

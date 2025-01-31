@@ -1,6 +1,7 @@
 import { initializeStaff, processNote, toggleClefMode } from './notes.js';
 import { initializeMIDI } from './utils/index.js';
-import { DEBUG_MODE, FAKE_NOTE_CORRECT } from '../config.js';
+import { DEBUG_MODE, FAKE_NOTE_CORRECT } from './config.js';
+import { stats, saveStats} from './stats.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     let midiBuffer = [];
