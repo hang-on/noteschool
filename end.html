@@ -13,8 +13,21 @@
     <main class="main-content">
         <section class="end-section">
             <p>Congratulations on completing the session!</p>
+            <div id="stats-display"></div>
             <a href="index.html" class="button">Restart</a>
         </section>
     </main>
+    <script>
+        // Retrieve stats from localStorage
+        const stats = JSON.parse(localStorage.getItem('stats')) || { notesPlayed: 0, correctNotes: 0, incorrectNotes: 0 };
+        
+        // Display stats
+        const statsDisplay = document.getElementById('stats-display');
+        statsDisplay.innerHTML = `
+            <p>Notes Played: ${stats.notesPlayed}</p>
+            <p>Correct Notes: ${stats.correctNotes}</p>
+            <p>Incorrect Notes: ${stats.incorrectNotes}</p>
+        `;
+    </script>
 </body>
 </html>

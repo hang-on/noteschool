@@ -98,7 +98,6 @@ export function processNote(midiNote){
     const focusNoteElement = getFocusNote();
     const focusNote = focusNoteElement.getAttribute('data-note-name'); // Get the note name from the data attribute
     const note = getScientificPitchNotation(midiNote);
-
     if (note == focusNote || (midiNote == FAKE_NOTE_CORRECT && DEBUG_MODE == true)) {
         setFocusNoteColor(correctNoteColor);
 

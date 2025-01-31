@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let clearedPages = 0;
     const NOTE_ON = 144;
     const PAGE_CLEARED = 255;
+    const CORRECT_NOTE = 1;
+
 
     // Initialize Web Audio API
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -73,15 +75,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const [command, midiNote] = data;
             // Ignore all commands except NOTE_ON
             if (command === NOTE_ON) {
+                stats.notesPlayed++;
                 let result = 0;
                 result = processNote(midiNote);
                 if (result === PAGE_CLEARED) {
                     handlePageClear();
+                }
+                if (result === PAGE_CLEARED || result === CORRECT_NOTE){
+                    stats.correctNotes++;
                 }    
             }   
         }
         // Clear midi buffer.
         midiBuffer = [];
+        saveStats();
     }, 50);
 
     function handlePageClear(){
@@ -110,12 +117,16 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(`Key pressed: ${event.key}`);
             // The 'z' key simulates a correct note.
             if (event.key === 'z') {
+                stats.notesPlayed++;
                 const fakeNote = FAKE_NOTE_CORRECT;
                 let result = 0;
                 result = processNote(fakeNote);
                 if (result === PAGE_CLEARED) {
                     handlePageClear();
-                }    
+                }
+                if (result === PAGE_CLEARED || result === CORRECT_NOTE){
+                    stats.correctNotes++;
+                }        
             }
         }
     });
