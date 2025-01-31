@@ -1,6 +1,6 @@
 import { initializeStaff, processNote, toggleClefMode } from './notes.js';
 import { initializeMIDI } from './utils/index.js';
-
+import { DEBUG_MODE, FAKE_NOTE_CORRECT } from '../config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     let midiBuffer = [];
@@ -75,19 +75,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 let result = 0;
                 result = processNote(midiNote);
                 if (result === PAGE_CLEARED) {
-                    // Play the success sound if sound is enabled
-                    const soundToggle = document.getElementById('sound-toggle');
-                    if (soundToggle.checked) {
-                        playSound('success');
-                    }                    
-                    clearedPages++;
-                    updateClearedPagesDisplay();
+                    handlePageClear();
                 }    
             }   
         }
         // Clear midi buffer.
         midiBuffer = [];
     }, 50);
+
+    function handlePageClear(){
+        // Play the success sound if sound is enabled
+        const soundToggle = document.getElementById('sound-toggle');
+        if (soundToggle.checked) {
+            playSound('success');
+        }                    
+        clearedPages++;
+        updateClearedPagesDisplay();        
+    }
 
     function handleMIDIEvent (event){
         // Every MIDI event is buffered.
@@ -98,6 +102,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const clearedPagesDisplay = document.getElementById('cleared-pages-display');
         clearedPagesDisplay.textContent = `Cleared Pages: ${clearedPages}`;
     }
+
+    // Event listener for key presses
+    document.addEventListener('keydown', function(event) {
+        if (DEBUG_MODE) {
+            console.log(`Key pressed: ${event.key}`);
+            // The 'z' key simulates a correct note.
+            if (event.key === 'z') {
+                const fakeNote = FAKE_NOTE_CORRECT;
+                let result = 0;
+                result = processNote(fakeNote);
+                if (result === PAGE_CLEARED) {
+                    handlePageClear();
+                }    
+            }
+        }
+    });
+
 
 });
 
