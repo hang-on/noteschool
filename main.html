@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note School</title>
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <h1 class="title">Note School</h1>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="main-content">
+        <!-- Session info -->
+        <div id="cleared-pages-display" class="cleared-pages-display">Cleared Pages: 0</div>
+
+        <!-- Sound Toggle Switch -->
+        <section class="sound-toggle-section">
+            <label for="sound-toggle" class="right-align">Sound: </label>
+            <label class="switch">
+                <input type="checkbox" id="sound-toggle">
+                <span class="slider round"></span>
+            </label>
+        </section>
+
+        <!-- Clef Image Container -->
+        <div class="clef-image-container" id="clef-image-container">
+            <img src="images/f-clef.png" alt="F-clef" class="clef-image" id="clef-image">
+        </div>
+
+        <!-- Staff Section -->
+        <section class="staff-section">
+            <div class="staff">
+                <div class="staff-line"></div>
+                <div class="staff-line"></div>
+                <div class="staff-line"></div>
+                <div class="staff-line"></div>
+                <div class="staff-line"></div>
+                <div class="notes-container"></div>
+            </div>
+
+        </section>
+        <!-- MIDI Information Display -->
+        <section class="midi-info-section">
+            <div id="midi-info" class="midi-info"></div>
+        </section>
+    </main>
+    
+    <script type="module" src="src/index.js"></script>
+</body>
+</html>
