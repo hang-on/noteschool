@@ -49,7 +49,7 @@ function onMIDISuccess(midiAccess, onMIDIMessageHandler, verbose = false) {
         inputs.forEach((input, index) => {
             input.onmidimessage = onMIDIMessageHandler;
             if (verbose) {
-                printMIDIInfo(`Port ${index}: ${input.name}, Manufacturer: ${input.manufacturer}, State: ${input.state}, Connection: ${input.connection}`);
+                printMIDIInfo(`Port ${index}: ${input.name}, Manufacturer: ${input.manufacturer}, State: ${input.state}`);
             }
         });
     } else {
