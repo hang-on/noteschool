@@ -1,4 +1,5 @@
 import { getScientificPitchNotation } from './utils/index.js';
+import { DEBUG_MODE, FAKE_NOTE_CORRECT, FAKE_NOTE_INCORRECT } from './config.js';
 
 const fClefNotes = [
     { name: 'c4', y: 30, strikeThrough: true },
@@ -97,8 +98,7 @@ export function processNote(midiNote){
     const focusNoteElement = getFocusNote();
     const focusNote = focusNoteElement.getAttribute('data-note-name'); // Get the note name from the data attribute
     const note = getScientificPitchNotation(midiNote);
-
-    if (note == focusNote) {
+    if (note == focusNote || (midiNote == FAKE_NOTE_CORRECT && DEBUG_MODE == true)) {
         setFocusNoteColor(correctNoteColor);
 
         displayNoteName(focusNoteElement, focusNote, correctNoteColor);
@@ -110,7 +110,9 @@ export function processNote(midiNote){
             return 255;        
         } else {
             return 1;
-        }   
+        }
+    } else if (midiNote == FAKE_NOTE_INCORRECT && DEBUG_MODE == true){
+        return 0;
     } else {
         return 0;
     }

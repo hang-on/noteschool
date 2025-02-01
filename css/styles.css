@@ -5,6 +5,8 @@
 @import "components/midi-info.css";
 @import "components/toggle-switch.css";
 @import "components/cleared-pages-display.css";
+@import "components/buttons.css";
+@import "components/progress-bar.css";
 
 
 /* Import note and staff styles */
@@ -31,4 +33,5 @@ body {
     justify-content: center;
     min-height: 100vh;
 }
+
 
