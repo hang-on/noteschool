@@ -4,13 +4,13 @@ const stats = JSON.parse(localStorage.getItem('stats')) || { notesPlayed: 0, cor
 // Display stats
 const statsDisplay = document.getElementById('stats-display');
 statsDisplay.innerHTML = `
-    <p>Notes Played: ${stats.notesPlayed}</p>
-    <p>Correct Notes: ${stats.correctNotes}</p>
+    <p><b>Notes Played:</b> ${stats.notesPlayed}</p>
+    <p><b>Correct Notes:</b> ${stats.correctNotes}</p>
 `;
 const timeStatsDisplay = document.getElementById('time-stats-display');
 if (stats.averageTime == 0){
     timeStatsDisplay.innerHTML += `
-    <p>Average Time Per Correct Note: * Not available * Please clear a whole page to see this stat.</p>
+    <p><b>Average Time Per Correct Note:</b> * Not available * Please clear a whole page to see this stat.</p>
     `;
 } else {
     timeStatsDisplay.innerHTML += `
@@ -22,5 +22,13 @@ if (stats.averageTime == 0){
 const totalNotes = stats.notesPlayed;
 const correctRatio = totalNotes ? (stats.correctNotes / totalNotes) * 100 : 0;
 
+// Set the CSS variable for the progress bar width
+document.documentElement.style.setProperty('--progress-width', `${correctRatio}%`);
+
 // Update progress bars
-document.getElementById('correct-progress').style.width = `${correctRatio}%`;
+const correctProgressBar = document.getElementById('correct-progress');
+correctProgressBar.style.width = '0'; // Start with 0 width to trigger the animation
+setTimeout(() => {
+    correctProgressBar.style.width = `${correctRatio}%`;
+}, 100); // Delay to ensure the animation triggers
+
