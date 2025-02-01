@@ -14,6 +14,10 @@
         <section class="end-section">
             <p>Congratulations on completing the session!</p>
             <div id="stats-display"></div>
+            <div class="progress-bar-container">
+                <div id="correct-progress" class="progress-bar correct"></div>
+                <div id="incorrect-progress" class="progress-bar incorrect"></div>
+            </div>
             <a href="index.html" class="button">Restart</a>
         </section>
     </main>
@@ -28,6 +32,15 @@
             <p>Correct Notes: ${stats.correctNotes}</p>
             <p>Incorrect Notes: ${stats.incorrectNotes}</p>
         `;
+
+        // Calculate ratios
+        const totalNotes = stats.correctNotes + stats.incorrectNotes;
+        const correctRatio = totalNotes ? (stats.correctNotes / totalNotes) * 100 : 0;
+        const incorrectRatio = totalNotes ? (stats.incorrectNotes / totalNotes) * 100 : 0;
+
+        // Update progress bars
+        document.getElementById('correct-progress').style.width = `${correctRatio}%`;
+        document.getElementById('incorrect-progress').style.width = `${incorrectRatio}%`;
     </script>
 </body>
 </html>

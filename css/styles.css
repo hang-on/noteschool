@@ -57,3 +57,26 @@ button:active, .button:active, .start-button:active {
     background-color: var(--ash-gray);
     transform: scale(0.95);
 }
+/* Progress Bar Styles */
+.progress-bar-container {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    background-color: var(--ash-gray);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.progress-bar {
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.progress-bar.correct {
+    background-color: var(--teal);
+}
+
+.progress-bar.incorrect {
+    background-color: var(--cambridge-blue);
+}
