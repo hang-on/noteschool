@@ -31,10 +31,10 @@ export function getScientificPitchNotation(midiValue) {
     return MIDIToScientificPitchNotation[midiValue];
 }
 
-export function initializeMIDI(onMIDIMessageHandler) {
+export function initializeMIDI(onMIDIMessageHandler, verbose = false) {
     if (navigator.requestMIDIAccess) {
         navigator.requestMIDIAccess({ sysex: true }).then(
-            (midiAccess) => onMIDISuccess(midiAccess, onMIDIMessageHandler),
+            (midiAccess) => onMIDISuccess(midiAccess, onMIDIMessageHandler, verbose),
             onMIDIFailure
         );
     } else {
@@ -42,16 +42,20 @@ export function initializeMIDI(onMIDIMessageHandler) {
     }
 }
 
-function onMIDISuccess(midiAccess, onMIDIMessageHandler) {
+function onMIDISuccess(midiAccess, onMIDIMessageHandler, verbose = false) {
     const inputs = Array.from(midiAccess.inputs.values());
     
     if (inputs.length > 0) {
         inputs.forEach((input, index) => {
             input.onmidimessage = onMIDIMessageHandler;
-            printMIDIInfo(`Port ${index}: ${input.name}, Manufacturer: ${input.manufacturer}, State: ${input.state}, Connection: ${input.connection}`);
+            if (verbose) {
+                printMIDIInfo(`Port ${index}: ${input.name}, Manufacturer: ${input.manufacturer}, State: ${input.state}, Connection: ${input.connection}`);
+            }
         });
     } else {
-        printMIDIInfo('No MIDI inputs detected.');
+        if (verbose) {
+            printMIDIInfo('No MIDI inputs detected.');
+        }
     }
     console.log('MIDI access granted');
 }
