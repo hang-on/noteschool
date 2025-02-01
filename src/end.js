@@ -14,7 +14,7 @@ if (stats.averageTime == 0){
     `;
 } else {
     timeStatsDisplay.innerHTML += `
-    <p>Average Time Per Correct Note: ${stats.averageTime.toFixed(2)} seconds</p>
+    <p><b>Average Time Per Correct Note:</b> ${stats.averageTime.toFixed(2)} seconds</p>
     `;
 }
 
