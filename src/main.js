@@ -1,7 +1,7 @@
 import { initializeStaff, processNote, toggleClefMode } from './notes.js';
 import { initializeMIDI } from './utils/index.js';
 import { DEBUG_MODE, FAKE_NOTE_CORRECT, FAKE_NOTE_INCORRECT } from './config.js';
-import { stats, saveStats} from './stats.js';
+import { stats, saveStats, getAverageTimePerCorrectNote} from './stats.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     let midiBuffer = [];
@@ -85,6 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function handleNoteInput(note){
         stats.notesPlayed++;
+        if (stats.startTime === null){
+            // Begin to track the time
+            stats.startTime = Date.now();
+        }
+        
         let result = 0;
         result = processNote(note);
         if (result === PAGE_CLEARED) {
@@ -103,7 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
             playSound('success');
         }                    
         clearedPages++;
-        updateClearedPagesDisplay();        
+        updateClearedPagesDisplay();
+        const endTime = Date.now();
+        stats.totalTimeSpent += endTime - stats.startTime;
+        stats.startTime = null;
+
     }
 
     function handleMIDIEvent (event){
