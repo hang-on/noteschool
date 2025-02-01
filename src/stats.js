@@ -3,6 +3,7 @@ export const stats = {
     correctNotes: 0,
     startTime: null,
     totalTimeSpent: 0,
+    averageTime: 0,
 };
 
 export function getAverageTimePerCorrectNote(){

@@ -113,6 +113,15 @@ document.addEventListener('DOMContentLoaded', () => {
         stats.totalTimeSpent += endTime - stats.startTime;
         stats.startTime = null;
 
+        // Calculate the new average time per correct note for the current page
+        const newAverageTime = (stats.totalTimeSpent / stats.correctNotes) / 1000; // Convert to seconds
+
+        // Update the averageTime property
+        if (stats.averageTime) {
+            stats.averageTime = (parseFloat(stats.averageTime) + newAverageTime) / 2;
+        } else {
+            stats.averageTime = newAverageTime;
+        }
     }
 
     function handleMIDIEvent (event){

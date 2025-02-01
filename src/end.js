@@ -8,13 +8,13 @@ statsDisplay.innerHTML = `
     <p>Correct Notes: ${stats.correctNotes}</p>
 `;
 const timeStatsDisplay = document.getElementById('time-stats-display');
-if (stats.totalTimeSpent == 0){
+if (stats.averageTime == 0){
     timeStatsDisplay.innerHTML += `
     <p>Average Time Per Correct Note: * Not available * Please clear a whole page to see this stat.</p>
     `;
 } else {
     timeStatsDisplay.innerHTML += `
-    <p>Average Time Per Correct Note: ${stats.correctNotes > 0 ? ((stats.totalTimeSpent / stats.correctNotes) / 1000).toFixed(2) : 0} seconds</p>
+    <p>Average Time Per Correct Note: ${stats.averageTime.toFixed(2)} seconds</p>
     `;
 }
 
