@@ -16,15 +16,6 @@
             <a href="main.html" class="start-button" id="start-button">Start</a>
         </section>
     </main>
-    <script>
-        document.getElementById('start-button').addEventListener('click', function() {
-            // Reset stats in localStorage
-            const stats = {
-                notesPlayed: 0,
-                correctNotes: 0,
-            };
-            localStorage.setItem('stats', JSON.stringify(stats));
-        });
-    </script>
+    <script type="module" src="src/index.js"></script>
 </body>
 </html>

@@ -4,9 +4,9 @@ export const stats = {
 };
 
 // Initialize stats from localStorage if available
-if (localStorage.getItem('stats')) {
-    Object.assign(stats, JSON.parse(localStorage.getItem('stats')));
-}
+//if (localStorage.getItem('stats')) {
+//    Object.assign(stats, JSON.parse(localStorage.getItem('stats')));
+//}
 
 // Function to save stats to localStorage
 export function saveStats() {
