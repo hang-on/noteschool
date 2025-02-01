@@ -1,6 +1,6 @@
 import { initializeStaff, processNote, toggleClefMode } from './notes.js';
 import { initializeMIDI } from './utils/index.js';
-import { DEBUG_MODE, FAKE_NOTE_CORRECT } from './config.js';
+import { DEBUG_MODE, FAKE_NOTE_CORRECT, FAKE_NOTE_INCORRECT } from './config.js';
 import { stats, saveStats} from './stats.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -125,6 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const fakeNote = FAKE_NOTE_CORRECT;
                 handleNoteInput(fakeNote);
             }
+            if (event.key === 'x') {
+                const fakeNote = FAKE_NOTE_INCORRECT;
+                handleNoteInput(fakeNote);
+            }
+
         }
     });
 
