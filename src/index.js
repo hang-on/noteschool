@@ -6,6 +6,7 @@ window.onload = function(){
 };
 
 function dummy (){
+    // Do not do anything with midi messages here...
     return;
 }
 
