@@ -1,7 +1,6 @@
 export const stats = {
     notesPlayed: 0,
     correctNotes: 0,
-    incorrectNotes: 0,
 };
 
 // Initialize stats from localStorage if available
