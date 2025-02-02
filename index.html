@@ -13,14 +13,15 @@
     </header>
     <main class="main-content">
         <section class="welcome-section">
-            <p>Welcome to Note School! Please verify that your midi instrument is connected,
-                and then click the button below to start.</p>
-            <a href="main.html" class="start-button" id="start-button">Start</a>
+            <p></p>
+            <div class="image-container">
+                <img src="images/cat-and-girl.png" alt="Cat and Girl" class="welcome-image">
+                <div class="overlay">
+                    <div id="midi-info" class="midi-info"></div>
+                    <a href="main.html" class="start-button" id="start-button">Start</a>
+                </div>
+            </div>
         </section>
-        <section class="midi-info-section">
-            <div id="midi-info" class="midi-info"></div>
-        </section>
-
     </main>
     <script type="module" src="src/index.js"></script>
 </body>

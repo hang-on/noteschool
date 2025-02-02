@@ -23,3 +23,32 @@ button:active, .button:active, .start-button:active {
     background-color: var(--ash-gray);
     transform: scale(0.95);
 }
+
+/* Style for the start button */
+.start-button {
+    background-color: var(--teal);
+    color: white;
+    border: 2px solid var(--rich-black); /* Add border */
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease, border-color 0.3s ease; /* Add border-color transition */
+}
+
+.start-button:hover {
+    background-color: var(--cambridge-blue);
+    border-color: var(--ash-gray); /* Change border color on hover */
+    transform: scale(1.05);
+}
+
+.start-button:active {
+    background-color: var(--ash-gray);
+    border-color: var(--teal); /* Change border color on active */
+    transform: scale(0.95);
+}
+

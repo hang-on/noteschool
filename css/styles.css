@@ -35,3 +35,24 @@ body {
 }
 
 
+.welcome-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.overlay {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -10%);
+    text-align: center;
+    width: 100%;
+}
