@@ -15,7 +15,9 @@ if (stats.averageTime == 0){
 } else {
     timeStatsDisplay.innerHTML += `
     <p><b>Average Time Per Correct Note:</b> ${stats.averageTime.toFixed(2)} seconds</p>
+    <p><b>Total Session Time:</b> ${stats.totalSessionTime.toFixed(2)} seconds</p>
     `;
+    console.log(stats.totalSessionTime)
 }
 
 // Calculate ratios

@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const PAGE_CLEARED = 255;
     const CORRECT_NOTE = 1;
 
+    stats.sessionStartTime = Date.now();
+
 
     // Initialize Web Audio API
     const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -150,6 +152,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         }
     });
+
+    // Event listener for the "End Session" button
+    document.getElementById('end-session-button').addEventListener('click', function() {
+        // Track session end time and calculate total session time
+        const sessionEndTime = Date.now();
+        stats.totalSessionTime = (sessionEndTime - stats.sessionStartTime) / 1000; // Convert to seconds
+        saveStats(); // Save stats to localStorage
+    });
+    
 
 });
 
