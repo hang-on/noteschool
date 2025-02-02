@@ -110,6 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
             playSound('success');
         }                    
         clearedPages++;
+        stats.totalPagesCleared++;
+        saveStats();
         updateClearedPagesDisplay();
         const endTime = Date.now();
         stats.totalTimeSpent += endTime - stats.startTime;

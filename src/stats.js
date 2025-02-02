@@ -6,6 +6,7 @@ export const stats = {
     averageTime: 0,
     sessionStartTime: null,
     totalSessionTime: 0,
+    totalPagesCleared: 0,
 };
 
 export function getAverageTimePerCorrectNote(){

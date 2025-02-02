@@ -4,6 +4,7 @@ const stats = JSON.parse(localStorage.getItem('stats')) || { notesPlayed: 0, cor
 // Display stats
 const statsDisplay = document.getElementById('stats-display');
 statsDisplay.innerHTML = `
+    <p><b>Total Pages Cleared:</b> ${stats.totalPagesCleared}</p>
     <p><b>Notes Played:</b> ${stats.notesPlayed}</p>
     <p><b>Correct Notes:</b> ${stats.correctNotes}</p>
 `;

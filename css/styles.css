@@ -56,3 +56,11 @@ body {
     text-align: center;
     width: 100%;
 }
+
+.cat-image {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    width: 125px; /* Adjust the size as needed */
+    height: auto;
+}
