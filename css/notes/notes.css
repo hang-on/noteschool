@@ -66,28 +66,50 @@
 
 .note {
     position: absolute;
-    width: 20px;
-    height: 20px;
+    display: flex;
+    /*align-items: center; */
+}
+
+.note-head {
+    width: 18px;
+    height: 23px; /* Make it taller to create an ellipse */
     background-color: var(--rich-black);
     border-radius: 50%;
+    transform: rotate(400deg); /* Tilt the ellipse */
 }
+
+.note-head-bar-line {
+    width: 30px;
+    height: 2px; /* Make it taller to create an ellipse */    
+    background-color: var(--rich-black);
+}
+
+.note-stem-down {
+    margin-top: 15px; 
+    width: 2px;
+    height: 60px;
+    background-color: var(--rich-black);
+}
+
+.note-stem-up {
+    margin-top: -50px; 
+    width: 2px;
+    height: 60px;
+    background-color: var(--rich-black);
+}
+
 
 .note-name {
     font-size: 1em;
     text-align: center;
 }
 
-.strike-through-note::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -10px; /* Adjust to center the line */
-    width: 40px; /* Length of the line */
-    height: 1px;
-    background-color: var(--strike-through-color);
-    transform: translateY(-50%);
-}
 
-.strike-through-note {
-    --strike-through-color: var(--rich-black);
+/* Special strike-through line */
+.strike-through-line {
+    margin-top:10px;
+    margin-left:-30px;
+    width: 40px;
+    height: 2px;
+    background-color: var(--rich-black);
 }

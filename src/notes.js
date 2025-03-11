@@ -148,12 +148,40 @@ function isFocusNoteOutOfBounds(){
 function addNoteAtPosition(container, x, y, strikeThrough = false, noteName) {
     const note = document.createElement('div');
     note.classList.add('note');
-    if (strikeThrough) {
-        note.classList.add('strike-through-note');
-    }
     note.style.left = `${x}px`;
     note.style.top = `${y}px`;
     note.setAttribute('data-note-name', noteName); // Set the note name as a data attribute
+
+    // Make a stem that fits the note's placement on the bars.
+    if (y <= 90) {
+        // Create the note stem
+        const noteStem = document.createElement('div');
+        noteStem.classList.add('note-stem-down');
+        note.appendChild(noteStem);
+        
+        // Create the note head
+        const noteHead = document.createElement('div');
+        noteHead.classList.add('note-head');
+        note.appendChild(noteHead);
+    } else {
+        // Create the note head
+        const noteHead = document.createElement('div');
+        noteHead.classList.add('note-head');
+        note.appendChild(noteHead);
+
+        // Create the note stem
+        const noteStem = document.createElement('div');
+        noteStem.classList.add('note-stem-up');
+        note.appendChild(noteStem);
+    }
+
+    // Create the strike-through line if needed
+    if (strikeThrough) {
+        const strikeThroughLine = document.createElement('div');
+        strikeThroughLine.classList.add('strike-through-line');
+        note.appendChild(strikeThroughLine);
+    }
+
     container.appendChild(note);
     notesOnStaff.push(note); // Add the note to the notesOnStaff array
     return note;
