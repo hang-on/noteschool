@@ -198,7 +198,22 @@ function generateRandomNote() {
 
 function setFocusNoteColor(color) {
     // Set the background color of the focus note
-    notesOnStaff[focusNoteIndex].style.backgroundColor = color;
+    //notesOnStaff[focusNoteIndex].style.backgroundColor = color;
+ 
+    // Set the color of the note head
+    const noteHead = notesOnStaff[focusNoteIndex].querySelector('.note-head');
+    if (noteHead) {
+        noteHead.style.backgroundColor = color;
+    }
+
+    const noteStem = notesOnStaff[focusNoteIndex].querySelector('.note-stem-up');
+    if (noteStem) {
+        noteStem.style.backgroundColor = color;
+    }
+    const noteStemDown = notesOnStaff[focusNoteIndex].querySelector('.note-stem-down');
+    if (noteStemDown) {
+        noteStemDown.style.backgroundColor = color;
+    }
 
     // Check if the note has a strike-through line and set its color
     const strikeThroughNote = notesOnStaff[focusNoteIndex].classList.contains('strike-through-note');
