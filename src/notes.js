@@ -101,7 +101,7 @@ export function processNote(midiNote){
     if (note == focusNote || (midiNote == FAKE_NOTE_CORRECT && DEBUG_MODE == true)) {
         setFocusNoteColor(correctNoteColor);
 
-        displayNoteName(focusNoteElement, focusNote, correctNoteColor);
+        displayNoteName(focusNoteElement, focusNote, '--rich-black');
 
         updateFocusNote();
 
@@ -216,9 +216,9 @@ function setFocusNoteColor(color) {
     }
 
     // Check if the note has a strike-through line and set its color
-    const strikeThroughNote = notesOnStaff[focusNoteIndex].classList.contains('strike-through-note');
-    if (strikeThroughNote) {
-        notesOnStaff[focusNoteIndex].style.setProperty('--strike-through-color', color);
+    const strikeThroughLine = notesOnStaff[focusNoteIndex].querySelector('.strike-through-line');
+    if (strikeThroughLine) {
+        strikeThroughLine.style.backgroundColor = color;
     }
 }
 function displayNoteName(focusNoteElement, noteName, color) {
