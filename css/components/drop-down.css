@@ -1,0 +1,35 @@
+/* Drop-down container styling */
+.dropdown-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Label styling */
+.dropdown-label {
+    font-size: 1.2em;
+    margin-right: 10px;
+    color: #333;
+}
+
+/* Drop-down styling */
+.dropdown {
+    font-size: 1em;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Drop-down hover and focus effects */
+.dropdown:hover {
+    border-color: #888;
+}
+
+.dropdown:focus {
+    border-color: #555;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
