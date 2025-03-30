@@ -30,3 +30,29 @@ document.getElementById('start-button').addEventListener('click', function() {
     localStorage.setItem('selectedSession', selectedValue);
     
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const dropdown = document.getElementById("session-dropdown");
+
+    // JSON data for the dropdown options
+    const sessionData = [
+        { value: "1", text: "C Major Scale, F-Clef" },
+        { value: "2", text: "C Major Scale, G-Clef" },
+        { value: "3", text: "A Major Scale, G-Clef" },
+        { value: "4", text: "E Minor Scale, F-Clef" }
+    ];
+
+    // Populate the dropdown with options
+    sessionData.forEach(session => {
+        const option = document.createElement("option");
+        option.value = session.value;
+        option.textContent = session.text;
+        dropdown.appendChild(option);
+    });
+
+    // Retrieve the selected session from localStorage and set it as selected
+    const savedSession = localStorage.getItem("selectedSession");
+    if (savedSession) {
+        dropdown.value = savedSession;
+    }
+});
