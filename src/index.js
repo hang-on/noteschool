@@ -1,5 +1,6 @@
 import { stats, saveStats} from './stats.js';
 import { initializeMIDI } from './utils/index.js';
+import { sessionData } from './data/sessions.js'; // Import the JSON data
 
 window.onload = function(){
     // List available midi-devices in the designated section.
@@ -33,14 +34,6 @@ document.getElementById('start-button').addEventListener('click', function() {
 
 document.addEventListener("DOMContentLoaded", function () {
     const dropdown = document.getElementById("session-dropdown");
-
-    // JSON data for the dropdown options
-    const sessionData = [
-        { value: "1", text: "C Major Scale, F-Clef" },
-        { value: "2", text: "C Major Scale, G-Clef" },
-        { value: "3", text: "A Major Scale, G-Clef" },
-        { value: "4", text: "E Minor Scale, F-Clef" }
-    ];
 
     // Populate the dropdown with options
     sessionData.forEach(session => {
