@@ -4,7 +4,7 @@ import { getCurrentSession } from './data/sessions.js';
 
 
 const fClefNotes = [
-    { name: 'c4', y: 30, strikeThrough: true },  // Remeber to add sharps as you need them!
+    { name: 'c4', y: 30, strikeThrough: true },  // Remember to add sharps as you need them!
     { name: 'b3', y: 40, strikeThrough: false },
     { name: 'a3', y: 50, strikeThrough: false },
     { name: 'g3', y: 60, strikeThrough: false },
