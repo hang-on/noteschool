@@ -37,11 +37,6 @@ document.getElementById('end-session-button').addEventListener('click', function
     saveStats(); // Save stats to localStorage
 });
 
-
-document.addEventListener('DOMContentLoaded', () => {
-    initializeStaff();     
-});
-
 document.getElementById('sound-toggle').addEventListener('change', function() {
     if (this.checked) {
         playSound('click');
@@ -82,6 +77,10 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         console.warn('No saved session found in localStorage.');
     }
+
+    initializeStaff();     
+
+
 });
 
 initializeAudio();
