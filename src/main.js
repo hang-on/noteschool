@@ -3,7 +3,7 @@ import { initializeMIDI } from './utils/index.js';
 import { DEBUG_MODE, FAKE_NOTE_CORRECT, FAKE_NOTE_INCORRECT } from './config.js';
 import { stats, saveStats, getAverageTimePerCorrectNote} from './stats.js';
 import { initializeAudio, playSound } from './utils/audio.js';
-import { sessionData } from './data/sessions.js'; // Import session data
+import { getCurrentSession } from './data/sessions.js'; 
 
 
 let midiBuffer = [];
@@ -61,6 +61,17 @@ setInterval(() => {
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    // Retrieve the current session
+    const session = getCurrentSession();
+
+    if (session) {
+        // Update the header with the session title
+        const headerTitle = document.querySelector('.header .title');
+        headerTitle.textContent = session.title;
+    } else {
+        console.error('No current session set.');
+    }
+    
     initializeStaff();     
 
 });
