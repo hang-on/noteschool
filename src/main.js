@@ -2,6 +2,7 @@ import { initializeStaff, processNote, toggleClefMode } from './notes.js';
 import { initializeMIDI } from './utils/index.js';
 import { DEBUG_MODE, FAKE_NOTE_CORRECT, FAKE_NOTE_INCORRECT } from './config.js';
 import { stats, saveStats, getAverageTimePerCorrectNote} from './stats.js';
+import { initializeAudio, playSound } from './utils/audio.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     let midiBuffer = [];
@@ -12,37 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     stats.sessionStartTime = Date.now();
 
-
-    // Initialize Web Audio API
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const sounds = {};
-
-    // Function to load a sound
-    function loadSound(url, name) {
-        fetch(url)
-            .then(response => response.arrayBuffer())
-            .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
-            .then(audioBuffer => {
-                sounds[name] = audioBuffer;
-            })
-            .catch(e => console.error('Error loading sound:', e));
-    }
-
-    // Load sounds
-    loadSound('sfx/success.mp3', 'success');
-    loadSound('sfx/click.mp3', 'click');
-
-    // Function to play a sound
-    function playSound(name) {
-        const sound = sounds[name];
-        if (sound) {
-            const source = audioContext.createBufferSource();
-            source.buffer = sound;
-            source.connect(audioContext.destination);
-            source.start(0);
-        }
-    }
-
+    initializeAudio();
 
     document.getElementById('sound-toggle').addEventListener('change', function() {
         if (this.checked) {
