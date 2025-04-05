@@ -50,14 +50,6 @@ const F_CLEF = 0;
 const G_CLEF = 255;
 var clefMode = F_CLEF;
 
-// Two different data sets for the note pool in f-clef mode
-const noteCollection1 = ['c3', 'd3', 'e3', 'f3', 'g3', 'b3', 'a3', 'b3', 'c4'];
-const noteCollection2 = ['e2', 'f2', 'g2', 'a2', 'b2', 'c3', 'd3', 'e3', 'f3'];
-
-// Two different data sets for the note pool in g-clef mode
-const noteCollection3 = ['c4', 'e4', 'f4', 'g4', 'a4', 'b4', 'c5', 'd5', 'e5'];
-const noteCollection4 = ['g4', 'a4', 'b4', 'c5', 'd5', 'e5', 'f5', 'g5', 'a5'];
-
 // Get the value of the --cambridge-blue CSS variable (used to mark correct input)
 const correctNoteColor = getComputedStyle(document.documentElement).getPropertyValue('--cambridge-blue').trim();
 
@@ -84,8 +76,6 @@ export function initializeStaff(){
 
     // Clear existing notes
     notesOnStaff.length = 0;
-
-
 
     // Reset index
     focusNoteIndex = 0;
@@ -130,17 +120,6 @@ export function processNote(midiNote){
     } else {
         return 0;
     }
-}
-
-function selectRandomNotePool() {
-    if (clefMode === F_CLEF){
-        const randomIndex = Math.floor(Math.random() * 2);
-        return randomIndex === 0 ? noteCollection1 : noteCollection2;
-    } else {
-        const randomIndex = Math.floor(Math.random() * 2);
-        return randomIndex === 0 ? noteCollection3 : noteCollection4;
-    }
-
 }
 
 function getFocusNote(){
