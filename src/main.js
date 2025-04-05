@@ -60,26 +60,8 @@ setInterval(() => {
 }, 50);
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Retrieve the saved session value from localStorage
-    const savedSessionValue = localStorage.getItem('selectedSession');
-
-    if (savedSessionValue) {
-        // Find the session object that matches the saved value
-        const session = sessionData.find(s => s.value === savedSessionValue);
-
-        if (session) {
-            // Set the header content to the session's title
-            const headerTitle = document.querySelector('.header .title');
-            headerTitle.textContent = session.title;
-        } else {
-            console.error('Session not found in sessionData.');
-        }
-    } else {
-        console.warn('No saved session found in localStorage.');
-    }
 
     initializeStaff();     
-
 
 });
 

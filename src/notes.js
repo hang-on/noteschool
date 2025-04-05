@@ -1,5 +1,7 @@
 import { getScientificPitchNotation } from './utils/index.js';
 import { DEBUG_MODE, FAKE_NOTE_CORRECT, FAKE_NOTE_INCORRECT } from './config.js';
+import { getCurrentSession } from './data/sessions.js';
+
 
 const fClefNotes = [
     { name: 'c4', y: 30, strikeThrough: true },
@@ -68,7 +70,10 @@ export function toggleClefMode(){
 }
 
 export function initializeStaff(){
-    notePool = selectRandomNotePool();
+
+    const session = getCurrentSession();
+
+    notePool = session.notes;
 
     // Clear existing notes
     notesOnStaff.length = 0;

@@ -1,6 +1,6 @@
 import { stats, saveStats} from './stats.js';
 import { initializeMIDI } from './utils/index.js';
-import { sessionData } from './data/sessions.js'; // Import the JSON data
+import { sessionData, setCurrentSession } from './data/sessions.js'; // Import the JSON data
 
 window.onload = function(){
     // List available midi-devices in the designated section.
@@ -22,9 +22,15 @@ document.getElementById('start-button').addEventListener('click', function() {
     const dropdown = document.getElementById('session-dropdown');
     const selectedValue = dropdown.value; // Get the value of the selected option
 
-    // Save the selected value to localStorage
-    localStorage.setItem('selectedSession', selectedValue);
-    
+    // Find the selected session in sessionData
+    const selectedSession = sessionData.find(session => session.value === selectedValue);
+
+    if (selectedSession) {
+        // Set the global currentSession variable
+        setCurrentSession(selectedSession);
+    } else {
+        console.error('Selected session not found in sessionData.');
+    } 
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -38,9 +44,4 @@ document.addEventListener("DOMContentLoaded", function () {
         dropdown.appendChild(option);
     });
 
-    // Retrieve the selected session from localStorage and set it as selected
-    const savedSession = localStorage.getItem("selectedSession");
-    if (savedSession) {
-        dropdown.value = savedSession;
-    }
 });
