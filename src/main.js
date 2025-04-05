@@ -3,6 +3,7 @@ import { initializeMIDI } from './utils/index.js';
 import { DEBUG_MODE, FAKE_NOTE_CORRECT, FAKE_NOTE_INCORRECT } from './config.js';
 import { stats, saveStats, getAverageTimePerCorrectNote} from './stats.js';
 import { initializeAudio, playSound } from './utils/audio.js';
+import { sessionData } from './data/sessions.js'; // Import session data
 
 
 let midiBuffer = [];
@@ -62,6 +63,26 @@ setInterval(() => {
     midiBuffer = [];
     saveStats();
 }, 50);
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Retrieve the saved session value from localStorage
+    const savedSessionValue = localStorage.getItem('selectedSession');
+
+    if (savedSessionValue) {
+        // Find the session object that matches the saved value
+        const session = sessionData.find(s => s.value === savedSessionValue);
+
+        if (session) {
+            // Set the header content to the session's title
+            const headerTitle = document.querySelector('.header .title');
+            headerTitle.textContent = session.title;
+        } else {
+            console.error('Session not found in sessionData.');
+        }
+    } else {
+        console.warn('No saved session found in localStorage.');
+    }
+});
 
 initializeAudio();
 initializeMIDI(handleMIDIEvent);

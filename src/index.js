@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
     sessionData.forEach(session => {
         const option = document.createElement("option");
         option.value = session.value;
-        option.textContent = session.text;
+        option.textContent = session.title;
         dropdown.appendChild(option);
     });
 
