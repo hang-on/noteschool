@@ -30,7 +30,7 @@ export const sessionData = [
         value: "3",
         title: "C Major Scale, G-Clef",
         clef: "G",
-        key: "A",
-        notes: ['c3', 'd3', 'e3', 'f3', 'g3', 'b3', 'a3', 'b3', 'c4']
+        key: "C",
+        notes: ['a5', 'f5', 'g5']
         }
 ];

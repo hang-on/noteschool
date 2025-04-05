@@ -61,22 +61,31 @@ const noteCollection4 = ['g4', 'a4', 'b4', 'c5', 'd5', 'e5', 'f5', 'g5', 'a5'];
 // Get the value of the --cambridge-blue CSS variable (used to mark correct input)
 const correctNoteColor = getComputedStyle(document.documentElement).getPropertyValue('--cambridge-blue').trim();
 
-export function toggleClefMode(){
-    if (clefMode === F_CLEF){
-        clefMode = G_CLEF;
-    } else {
-        clefMode = F_CLEF;
-    }
-}
-
 export function initializeStaff(){
 
     const session = getCurrentSession();
 
     notePool = session.notes;
 
+    // Set the clef mode based on the session's clef property
+    const clefImage = document.getElementById('clef-image');
+    if (session.clef === 'F') {
+        clefMode = F_CLEF;
+        clefImage.src = 'images/f-clef.png'; // Path to the F-clef image
+        clefImage.alt = 'F Clef';
+    } else if (session.clef === 'G') {
+        clefMode = G_CLEF;
+        clefImage.src = 'images/g-clef.png'; // Path to the G-clef image
+        clefImage.alt = 'G Clef';
+    } else {
+        console.error(`Unknown clef mode: ${session.clef}`);
+        return;
+    }
+
     // Clear existing notes
     notesOnStaff.length = 0;
+
+
 
     // Reset index
     focusNoteIndex = 0;
