@@ -6,12 +6,7 @@ window.onload = function(){
     // List available midi-devices in the designated section.
     initializeMIDI(dummy(), true);
 
-    // Retrieve the selected session from localStorage
-    const savedSession = localStorage.getItem('selectedSession');
-    if (savedSession) {
-        const dropdown = document.getElementById('session-dropdown');
-        dropdown.value = savedSession; // Set the drop-down to the saved value
-    }    
+
 };
 
 function dummy (){
