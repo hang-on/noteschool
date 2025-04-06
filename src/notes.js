@@ -21,7 +21,7 @@ const fClefNotes = [
 
 const gClefNotes = [
     { name: 'a5', y: 30, strikeThrough: true },
-    { name: 'g#5', y: 80, strikeThrough: false },
+    { name: 'g#5', y: 40, strikeThrough: false },
     { name: 'g5', y: 40, strikeThrough: false },
     { name: 'f#5', y: 80, strikeThrough: false },
     { name: 'f5', y: 50, strikeThrough: false },
