@@ -1,8 +1,10 @@
 import { getScientificPitchNotation } from './utils/index.js';
 import { DEBUG_MODE, FAKE_NOTE_CORRECT, FAKE_NOTE_INCORRECT } from './config.js';
+import { getCurrentSession } from './data/sessions.js';
+
 
 const fClefNotes = [
-    { name: 'c4', y: 30, strikeThrough: true },
+    { name: 'c4', y: 30, strikeThrough: true },  // Remember to add sharps as you need them!
     { name: 'b3', y: 40, strikeThrough: false },
     { name: 'a3', y: 50, strikeThrough: false },
     { name: 'g3', y: 60, strikeThrough: false },
@@ -19,17 +21,23 @@ const fClefNotes = [
 
 const gClefNotes = [
     { name: 'a5', y: 30, strikeThrough: true },
+    { name: 'g#5', y: 80, strikeThrough: false },
     { name: 'g5', y: 40, strikeThrough: false },
+    { name: 'f#5', y: 80, strikeThrough: false },
     { name: 'f5', y: 50, strikeThrough: false },
     { name: 'e5', y: 60, strikeThrough: false },
     { name: 'd5', y: 70, strikeThrough: false },
+    { name: 'c#5', y: 80, strikeThrough: false },
     { name: 'c5', y: 80, strikeThrough: false },
     { name: 'b4', y: 90, strikeThrough: false },
     { name: 'a4', y: 100, strikeThrough: false },
+    { name: 'g#4', y: 110, strikeThrough: false },
     { name: 'g4', y: 110, strikeThrough: false },
+    { name: 'f#4', y: 120, strikeThrough: false },
     { name: 'f4', y: 120, strikeThrough: false },
     { name: 'e4', y: 130, strikeThrough: false },
     { name: 'd4', y: 140, strikeThrough: false },
+    { name: 'c#4', y: 150, strikeThrough: true },
     { name: 'c4', y: 150, strikeThrough: true },
 ];
 
@@ -48,27 +56,29 @@ const F_CLEF = 0;
 const G_CLEF = 255;
 var clefMode = F_CLEF;
 
-// Two different data sets for the note pool in f-clef mode
-const noteCollection1 = ['c3', 'd3', 'e3', 'f3', 'g3', 'b3', 'a3', 'b3', 'c4'];
-const noteCollection2 = ['e2', 'f2', 'g2', 'a2', 'b2', 'c3', 'd3', 'e3', 'f3'];
-
-// Two different data sets for the note pool in g-clef mode
-const noteCollection3 = ['c4', 'e4', 'f4', 'g4', 'a4', 'b4', 'c5', 'd5', 'e5'];
-const noteCollection4 = ['g4', 'a4', 'b4', 'c5', 'd5', 'e5', 'f5', 'g5', 'a5'];
-
 // Get the value of the --cambridge-blue CSS variable (used to mark correct input)
 const correctNoteColor = getComputedStyle(document.documentElement).getPropertyValue('--cambridge-blue').trim();
 
-export function toggleClefMode(){
-    if (clefMode === F_CLEF){
-        clefMode = G_CLEF;
-    } else {
-        clefMode = F_CLEF;
-    }
-}
-
 export function initializeStaff(){
-    notePool = selectRandomNotePool();
+
+    const session = getCurrentSession();
+
+    notePool = session.notes;
+
+    // Set the clef mode based on the session's clef property
+    const clefImage = document.getElementById('clef-image');
+    if (session.clef === 'F') {
+        clefMode = F_CLEF;
+        clefImage.src = 'images/f-clef.png'; // Path to the F-clef image
+        clefImage.alt = 'F Clef';
+    } else if (session.clef === 'G') {
+        clefMode = G_CLEF;
+        clefImage.src = 'images/g-clef.png'; // Path to the G-clef image
+        clefImage.alt = 'G Clef';
+    } else {
+        console.error(`Unknown clef mode: ${session.clef}`);
+        return;
+    }
 
     // Clear existing notes
     notesOnStaff.length = 0;
@@ -116,17 +126,6 @@ export function processNote(midiNote){
     } else {
         return 0;
     }
-}
-
-function selectRandomNotePool() {
-    if (clefMode === F_CLEF){
-        const randomIndex = Math.floor(Math.random() * 2);
-        return randomIndex === 0 ? noteCollection1 : noteCollection2;
-    } else {
-        const randomIndex = Math.floor(Math.random() * 2);
-        return randomIndex === 0 ? noteCollection3 : noteCollection4;
-    }
-
 }
 
 function getFocusNote(){

@@ -1,0 +1,44 @@
+/* Drop-down container styling */
+.dropdown-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Label styling */
+.dropdown-label {
+    font-size: 1.2em;
+    margin-right: 10px;
+    color: var(--rich-black, #222); /* Dark text for contrast */
+    font-weight: bold;
+}
+
+/* Drop-down styling */
+.dropdown {
+    font-size: 1em;
+    padding: 10px 15px;
+    border: 1px solid var(--ash-gray, #ccc); /* Subtle border */
+    border-radius: 2px; /* Slightly rounded corners */
+    background-color: var(--light-gray, #f9f9f9); /* Light background */
+    color: var(--rich-black, #222); /* Dark text */
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Drop-down hover and focus effects */
+.dropdown:hover {
+    border-color: var(--teal, #468189); /* Teal border on hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+}
+
+.dropdown:focus {
+    border-color: var(--teal, #468189); /* Teal border on focus */
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2); /* Glow effect on focus */
+}
+
+/* Drop-down option styling */
+.dropdown option {
+    background-color: var(--light-gray, #f9f9f9); /* Match the drop-down background */
+    color: var(--rich-black, #222); /* Dark text */
+    padding: 10px;
+}
