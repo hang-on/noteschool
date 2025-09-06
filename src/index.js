@@ -45,3 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+document.getElementById('reset-stats-button').addEventListener('click', function() {
+    localStorage.removeItem('stats');
+    localStorage.removeItem('avgTimeHistory');
+    alert('Stats and history have been reset.');
+});
