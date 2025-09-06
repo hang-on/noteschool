@@ -14,7 +14,8 @@ export function getCurrentSession() {
 export const sessionData = [
     {
         value: "1",
-        title: "C Major Scale, F-Clef, Full Set",
+        title: "C Major Scale, F-Clef, Full Set, 5 pages",
+        length: "5",
         clef: "F",
         key: "C",
         notes: ['e2', 'f2', 'g2', 'b2', 'c3', 'd3', 'e3', 'f3', 'g3', 'b3', 'a3', 'b3', 'c4']
@@ -28,7 +29,8 @@ export const sessionData = [
     },
     {
         value: "3",
-        title: "C Major Scale, G-Clef, Full Set",
+        title: "C Major Scale, G-Clef, Full Set, 5 pages",
+        length: "5",
         clef: "G",
         key: "C",
         notes: ['c4', 'd4', 'e4', 'f4', 'g4', 'a4', 'b4', 'c5', 'd5', 'e5', 'f5', 'g5', 'a5']

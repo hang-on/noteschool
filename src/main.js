@@ -117,6 +117,15 @@ function handlePageClear(){
     // Calculate the new average time per correct note for the current page
     const newAverageTime = (stats.totalTimeSpent / stats.correctNotes) / 1000; // Convert to seconds
 
+    const session = getCurrentSession();
+    if (session.length && clearedPages == session.length){
+        // End the session automatically
+        const sessionEndTime = Date.now();
+        stats.totalSessionTime = (sessionEndTime - stats.sessionStartTime) / 1000; // Convert to seconds
+        saveStats(); // Save stats to localStorage
+        window.location.href = 'end.html';
+    }
+
     // Update the averageTime property
     if (stats.averageTime) {
         stats.averageTime = (parseFloat(stats.averageTime) + newAverageTime) / 2;
