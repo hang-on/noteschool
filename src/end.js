@@ -23,12 +23,16 @@ if (stats.averageTime && stats.averageTime > 0) {
 const previousAttempts = avgTimeHistory.slice(0, -1);
 const previousMean = previousAttempts.reduce((sum, val) => sum + val, 0) / previousAttempts.length;
 
-// Display stats
 const statsDisplay = document.getElementById('stats-display');
+// Calculate ratios
+const totalNotes = stats.notesPlayed;
+const correctRatio = totalNotes ? (stats.correctNotes / totalNotes) * 100 : 0;
+
 statsDisplay.innerHTML = `
     <p><b>Total Pages Cleared:</b> ${stats.totalPagesCleared}</p>
     <p><b>Notes Played:</b> ${stats.notesPlayed}</p>
     <p><b>Correct Notes:</b> ${stats.correctNotes}</p>
+    <p><b>Accuracy:</b> ${correctRatio.toFixed(1)}%</p>
 `;
 const timeStatsDisplay = document.getElementById('time-stats-display');
 if (stats.averageTime == 0){
@@ -58,9 +62,6 @@ timeStatsDisplay.innerHTML += `
 `;
 
 
-// Calculate ratios
-const totalNotes = stats.notesPlayed;
-const correctRatio = totalNotes ? (stats.correctNotes / totalNotes) * 100 : 0;
 
 // Set the CSS variable for the progress bar width
 document.documentElement.style.setProperty('--progress-width', `${correctRatio}%`);
