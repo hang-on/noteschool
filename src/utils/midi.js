@@ -48,9 +48,6 @@ function onMIDISuccess(midiAccess, onMIDIMessageHandler, verbose = false) {
     if (inputs.length > 0) {
         inputs.forEach((input, index) => {
             input.onmidimessage = onMIDIMessageHandler;
-            if (verbose) {
-                printMIDIInfo(`Port ${index}: ${input.name}, Manufacturer: ${input.manufacturer}, State: ${input.state}`);
-            }
         });
     } else {
         if (verbose) {
@@ -58,6 +55,18 @@ function onMIDISuccess(midiAccess, onMIDIMessageHandler, verbose = false) {
         }
     }
     console.log('MIDI access granted');
+ 
+    // Monitor connection status
+    midiAccess.addEventListener('statechange', function(event) {
+        const port = event.port;
+        if (port.type === "input" && port.state === "disconnected") {
+            alert("MIDI connection lost! Please reconnect your piano.");
+            printMIDIInfo(`MIDI input "${port.name}" disconnected.`);
+        }
+        if (port.type === "input" && port.state === "connected") {
+            printMIDIInfo(`MIDI input "${port.name}" connected.`);
+        }
+    });
 }
 
 function onMIDIFailure(error) {
